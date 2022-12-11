@@ -10,11 +10,10 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-public class User {
+public class Directory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String surname;
+
 }
