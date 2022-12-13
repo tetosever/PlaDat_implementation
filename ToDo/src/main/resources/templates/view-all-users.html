@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prova</title>
+</head>
+<body>
+<h1>Prova stampa tutti utenti</h1>
+<div th:each="user : ${users}">
+    <td><span th:text="${user.name}"> Name </span></td>
+    <td><span th:text="${user.surname}"> Surname </span></td>
+</div>
+</body>
+</html>

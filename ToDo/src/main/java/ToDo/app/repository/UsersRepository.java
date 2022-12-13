@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends JpaRepository<Users, Long>, CostumUserRepository {
+public interface UsersRepository extends JpaRepository<Users, Long>, CostumUserRepository {
     //JpaRepository implement fondamental query to retrieve data from database
-    public List<Users> findByName(String name);
+    List<Users> findByName(String name);
 }
