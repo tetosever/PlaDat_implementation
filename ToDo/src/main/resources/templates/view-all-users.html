@@ -6,9 +6,36 @@
 </head>
 <body>
 <h1>Prova stampa tutti utenti</h1>
-<div th:each="user : ${users}">
-    <td><span th:text="${user.name}"> Name </span></td>
-    <td><span th:text="${user.surname}"> Surname </span></td>
-</div>
+<table>
+    <thead>
+    <tr>
+        <th> Name </th>
+        <th> Surname </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td><span th:text="${user.name}"> Name </span></td>
+        <td><span th:text="${user.surname}"> Surname </span></td>
+        <td>
+            <form th:method="delete" th:action="@{/users/delete(id=${user.id})}"><button>Delete</button></form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<form th:method="post" th:action="@{/users}">
+    <table>
+        <tr>
+            <td>Name</td>
+            <td><input type="text" th:name="name"></td>
+        </tr>
+        <tr>
+            <td>Surname</td>
+            <td><input type="text" th:name="surname"></td>
+        </tr>
+        <tr><button type="submit">Submit</button></tr>
+    </table>
+</form>
 </body>
 </html>

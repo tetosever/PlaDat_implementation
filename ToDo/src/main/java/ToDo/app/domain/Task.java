@@ -17,8 +17,7 @@ import lombok.Setter;
 @Entity
 public class Task extends GenericToDo{
 
-    private LocalDateTime start_date;
-    private LocalDateTime end_date;
+    private String description;
     @Enumerated(EnumType.STRING)
     private Priority priority;
     @Lob
