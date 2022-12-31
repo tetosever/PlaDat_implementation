@@ -58,7 +58,7 @@ public class EventService {
         }
 
         //check if specific directory is present in db
-        directoryService.getByName(event.getDirectory().getName());
+        directoryService.getById(event.getDirectory().getId());
 
         //check if every users in the list are present in db
         for (Users users : event.getUsersList()) {

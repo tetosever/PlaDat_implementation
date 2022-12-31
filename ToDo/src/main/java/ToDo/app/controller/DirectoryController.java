@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/directory")
+@RequestMapping("/directories")
 public class DirectoryController {
 
     @Autowired
@@ -18,7 +18,7 @@ public class DirectoryController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView getAllDirectories(){
-        ModelAndView view = new ModelAndView("view-all-users.html");
+        ModelAndView view = new ModelAndView("directories.html");
         view.addObject("directories", directoryService.getAll());
         return view;
     }

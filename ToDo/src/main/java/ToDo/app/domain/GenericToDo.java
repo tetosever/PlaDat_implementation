@@ -1,13 +1,16 @@
 package ToDo.app.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
+
+import java.util.List;
+import java.util.UUID;
 
 @Setter
 @Getter
@@ -16,8 +19,20 @@ import lombok.Setter;
 public class GenericToDo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private Long id;
+    @GeneratedValue
+    @Column(columnDefinition = "uuid")
+    private UUID id;
+
+    @NonNull
+    @NotBlank
     private String title;
 
+    @NotNull
+    @ManyToMany(mappedBy = "genericToDoList")
+    private List<Users> usersList;
+
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "directory_id", referencedColumnName = "id", nullable = false)
+    private Directory directory;
 }

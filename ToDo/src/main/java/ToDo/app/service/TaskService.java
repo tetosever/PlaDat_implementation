@@ -35,7 +35,6 @@ public class TaskService {
         savedTask.setTitle(task.getTitle());
         savedTask.setDescription(task.getDescription());
         savedTask.setPriority(task.getPriority());
-        savedTask.setImage(task.getImage());
         savedTask.setDirectory(task.getDirectory());
         savedTask.setUsersList(task.getUsersList());
         taskRepository.save(savedTask);
@@ -55,7 +54,7 @@ public class TaskService {
 
     private void checkTask(Task task){
         //check if specific directory is present in db
-        directoryService.getByName(task.getDirectory().getName());
+        directoryService.getById(task.getDirectory().getId());
 
         //check if every users in the list are present in db
         for (Users users : task.getUsersList()) {

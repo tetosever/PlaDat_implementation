@@ -2,9 +2,10 @@ package ToDo.app.service;
 
 import ToDo.app.domain.Role;
 import ToDo.app.domain.Users;
-import ToDo.app.repository.UsersRepository;
+import ToDo.app.repository.UserRepository;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class UsersService {
 
     @Autowired
-    private UsersRepository usersRepository;
+    private UserRepository userRepository;
 
     public Users create(String name, String surname, Role role){
         Users users = new Users();
@@ -21,22 +22,22 @@ public class UsersService {
         users.setSurname(surname);
         users.setRole(role);
         //in questo caso potrei passare direttamente un oggetto e non i vari parametri
-        return usersRepository.save(users);
+        return userRepository.save(users);
     }
 
     public List<Users> getAll(){
-        return usersRepository.findAll();
+        return userRepository.findAll();
     }
 
-    public void delete(Long id){
+    public void delete(UUID id){
         if(id == null) {
             // TODO: 25/12/22 mettere eccezione personalizzata in modo che si capisca
         }
-        usersRepository.deleteById(id);
+        userRepository.deleteById(id);
     }
 
-    public Users getById(Long id){
-        Optional<Users> optionalUsers = usersRepository.findById(id);
+    public Users getById(UUID id){
+        Optional<Users> optionalUsers = userRepository.findById(id);
         if (!optionalUsers.isPresent()){
             // TODO: 27/12/22 eccezione personalizzata
         }
@@ -44,7 +45,7 @@ public class UsersService {
     }
 
     public List<Users> getByName(String name){
-        List<Users> usersList = usersRepository.findByName(name);
+        List<Users> usersList = userRepository.findByName(name);
         if (usersList == null || usersList.isEmpty()){
             // TODO: 27/12/22 eccezione personalizzata
         }
@@ -52,7 +53,7 @@ public class UsersService {
     }
 
     public void update(Users updateUser){
-        Optional<Users> optionalUsers = usersRepository.findById(updateUser.getId());
+        Optional<Users> optionalUsers = userRepository.findById(updateUser.getId());
         if (!optionalUsers.isPresent()){
             // TODO: 27/12/22 eccezione personalizzata
         }
@@ -60,6 +61,6 @@ public class UsersService {
         savedUser.setName(updateUser.getName());
         savedUser.setSurname(updateUser.getSurname());
         savedUser.setRole(updateUser.getRole());
-        usersRepository.save(savedUser);
+        userRepository.save(savedUser);
     }
 }

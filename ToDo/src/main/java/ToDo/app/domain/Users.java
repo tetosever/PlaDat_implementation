@@ -1,43 +1,42 @@
 package ToDo.app.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.util.UUID;
+
+import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Setter
 @Getter
 @Entity
 public class Users {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    @Column(columnDefinition = "uuid")
+    private UUID id;
+
+    @NonNull
+    @NotBlank
     private String name;
+
+    @NonNull
+    @NotBlank
     private String surname;
+
     @Enumerated(EnumType.STRING)
     private Role role;
+
     @ManyToMany
-    @JoinTable(name = "task_has_users",
-            joinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "task_id", referencedColumnName = "id"))
-    private List<Task> taskList;
-    @ManyToMany
-    @JoinTable(name = "event_has_users",
-            joinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "event_id", referencedColumnName = "id"))
-    private List<Event> eventList;
+    @JoinTable(
+            name = "getericToDo_has_users",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "genericToDo_id"))
+    private List<GenericToDo> genericToDoList;
 
 }

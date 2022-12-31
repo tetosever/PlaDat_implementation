@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class DirectoryService {
@@ -20,8 +21,8 @@ public class DirectoryService {
         return directoryRepository.findAll();
     }
 
-    public Directory getByName(@RequestParam(value = "directory_id")String name){
-        return directoryExists(name);
+    public Directory getById(@RequestParam(value = "directory_id") UUID id){
+        return directoryExists(id);
     }
 
     public Directory create(Directory directory){
@@ -29,17 +30,17 @@ public class DirectoryService {
     }
 
     public void update(Directory directory){
-        Directory savedDirectory = directoryExists(directory.getName());
+        Directory savedDirectory = directoryExists(directory.getId());
         savedDirectory.setDirectory(directory.getDirectory());
         directoryRepository.save(savedDirectory);
     }
 
     public void delete(Directory directory){
-        directoryRepository.delete(directoryExists(directory.getName()));
+        directoryRepository.delete(directoryExists(directory.getId()));
     }
 
-    private Directory directoryExists(String name){
-        Optional<Directory> optionalDirectory = directoryRepository.findByName(name);
+    private Directory directoryExists(UUID id){
+        Optional<Directory> optionalDirectory = directoryRepository.findById(id);
         if (!optionalDirectory.isPresent()){
             // TODO: 27/12/22 eccezione personalizzata
         }

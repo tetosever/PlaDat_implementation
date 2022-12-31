@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="f75f0283-e188-4970-9310-9af9882cfcac" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/ToDo/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ToDo/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ToDo/src/main/java/ToDo/app/ToDoApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/ToDo/src/main/java/ToDo/app/ToDoApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ToDo/src/main/java/ToDo/app/controller/DirectoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/ToDo/src/main/java/ToDo/app/controller/DirectoryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ToDo/src/main/java/ToDo/app/controller/UsersController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ToDo/src/main/java/ToDo/app/domain/Directory.java" beforeDir="false" afterPath="$PROJECT_DIR$/ToDo/src/main/java/ToDo/app/domain/Directory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ToDo/src/main/java/ToDo/app/domain/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/ToDo/src/main/java/ToDo/app/domain/Event.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ToDo/src/main/java/ToDo/app/domain/GenericToDo.java" beforeDir="false" afterPath="$PROJECT_DIR$/ToDo/src/main/java/ToDo/app/domain/GenericToDo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ToDo/src/main/java/ToDo/app/domain/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/ToDo/src/main/java/ToDo/app/domain/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ToDo/src/main/java/ToDo/app/domain/Users.java" beforeDir="false" afterPath="$PROJECT_DIR$/ToDo/src/main/java/ToDo/app/domain/Users.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ToDo/src/main/java/ToDo/app/repository/DirectoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/ToDo/src/main/java/ToDo/app/repository/DirectoryRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ToDo/src/main/java/ToDo/app/repository/EventRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/ToDo/src/main/java/ToDo/app/repository/EventRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ToDo/src/main/java/ToDo/app/repository/TaskRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/ToDo/src/main/java/ToDo/app/repository/TaskRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ToDo/src/main/java/ToDo/app/repository/UsersRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ToDo/src/main/java/ToDo/app/service/DirectoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ToDo/src/main/java/ToDo/app/service/DirectoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ToDo/src/main/java/ToDo/app/service/EventService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ToDo/src/main/java/ToDo/app/service/EventService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ToDo/src/main/java/ToDo/app/service/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ToDo/src/main/java/ToDo/app/service/TaskService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ToDo/src/main/java/ToDo/app/service/UsersService.java" beforeDir="false" afterPath="$PROJECT_DIR$/ToDo/src/main/java/ToDo/app/service/UsersService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ToDo/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ToDo/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ToDo/src/test/java/ToDo/app/controller/UsersControllerTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain_diagram.mdj" beforeDir="false" afterPath="$PROJECT_DIR$/domain_diagram.mdj" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2JekTrUBlthXNUKezMKgiKdiFu0" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/matti/Desktop/2022_assignment3_pladat/ToDo"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f75f0283-e188-4970-9310-9af9882cfcac" name="Changes" comment="" />
+      <created>1672445951532</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1672445951532</updated>
+      <workItem from="1672445954303" duration="26000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

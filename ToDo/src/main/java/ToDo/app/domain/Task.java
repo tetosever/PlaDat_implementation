@@ -7,9 +7,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 @Setter
@@ -18,13 +21,9 @@ import lombok.Setter;
 public class Task extends GenericToDo{
 
     private String description;
+
+    @NonNull
+    @NotNull
     @Enumerated(EnumType.STRING)
     private Priority priority;
-    @Lob
-    private byte[] image;
-    @ManyToOne
-    @JoinColumn(name = "directory_id", referencedColumnName = "id", nullable = false)
-    private Directory directory;
-    @ManyToMany(mappedBy = "taskList")
-    private List<Users> usersList;
 }
