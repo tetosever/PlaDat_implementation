@@ -34,30 +34,25 @@ public class DirectoryController {
         return directoryService.getById(id);
     }
 
-    //NB. bisogna capire la strategia da adottare. Se ricarico i dati nella stessa chiamata o in una separata
-
-    @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView create(
-            ModelAndView view,
-            @RequestParam(value = "name") String name) {
-        directoryService.create(name);
-        return view;
-    }
-
-    @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView delete(
-            ModelAndView view,
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public ModelAndView deleteDirectoriesByIdWithView(
             @RequestParam(value = "id") String id){
         directoryService.delete(id);
-        return view;
+        return new ModelAndView("redirect:/directories/");
+    }
+    
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public ModelAndView addDirectoriesWithView(
+            @RequestParam(value = "name") String name) {
+        directoryService.create(name);
+        return new ModelAndView("redirect:/directories/");
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView update(
-            ModelAndView view,
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    public ModelAndView updateDirectoriesWithView(
             @RequestParam(value = "id") String id,
             @RequestParam(value = "name") String name){
         directoryService.update(id, name);
-        return view;
+        return new ModelAndView("redirect:/directories/");
     }
 }

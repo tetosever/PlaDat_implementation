@@ -32,7 +32,7 @@ public class Users {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.REFRESH)
     @JoinTable(
             name = "getericToDo_has_users",
             joinColumns = @JoinColumn(name = "user_id"),

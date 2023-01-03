@@ -1,16 +1,23 @@
 package ToDo.app.domain;
 
-import javax.persistence.*;
+import java.util.List;
+import java.util.UUID;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
-
-import java.util.List;
-import java.util.UUID;
 
 @Setter
 @Getter
@@ -28,11 +35,15 @@ public class GenericToDo {
     private String title;
 
     @NotNull
-    @ManyToMany(mappedBy = "genericToDoList")
+    @ManyToMany(cascade = CascadeType.REFRESH)
+    @JoinTable(
+            name = "getericToDo_has_users",
+            joinColumns = @JoinColumn(name = "genericToDo_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<Users> usersList;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "directory_id", referencedColumnName = "id", nullable = false)
     private Directory directory;
 }

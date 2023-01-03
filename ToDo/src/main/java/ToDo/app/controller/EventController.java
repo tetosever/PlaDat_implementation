@@ -36,40 +36,44 @@ public class EventController {
         return eventService.getById(id);
     }
 
-    //NB. bisogna capire la strategia da adottare. Se li ricarico i dati nella stessa chiamata o in una separata
-
-    @RequestMapping(value = "create", method = RequestMethod.POST)
-    public ModelAndView addEventWithView(
-            ModelAndView view,
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public ModelAndView deleteEventByIdWithView(
+            @RequestParam(value = "id") String id,
             @RequestParam(value = "title") String title,
             @RequestParam(value = "start_date") LocalDateTime start_date,
-            @RequestParam(value = "end_date") LocalDateTime end_date,
+            @RequestParam(value = "end_date", required = false) LocalDateTime end_date,
+            @RequestParam(value = "place") String place){
+        eventService.delete(id);
+        return new ModelAndView("redirect:/");
+    }
+    
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public ModelAndView addEventWithView(
+            @RequestParam(value = "title") String title,
+            @RequestParam(value = "start_date") LocalDateTime start_date,
+            @RequestParam(value = "end_date", required = false) LocalDateTime end_date,
             @RequestParam(value = "place") String place){
         eventService.create(title, start_date, end_date, place);
-        return view;
+        return new ModelAndView("redirect:/");
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     public ModelAndView updateEventWithView(
-            ModelAndView view,
             @RequestParam(value = "id") String id,
             @RequestParam(value = "title") String title,
             @RequestParam(value = "start_date") LocalDateTime start_date,
-            @RequestParam(value = "end_date") LocalDateTime end_date,
+            @RequestParam(value = "end_date", required = false) LocalDateTime end_date,
             @RequestParam(value = "place") String place){
         eventService.update(id, title, start_date, end_date, place);
-        return view;
+        return new ModelAndView("redirect:/");
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public ModelAndView deleteEventByIdWithView(
-            ModelAndView view,
-            @RequestParam(value = "id") String id,
+    @RequestMapping(value = "/events/read/{title}/{start_date}/{user}", method = RequestMethod.GET)
+    public List<Event> getAllByFilter(
             @RequestParam(value = "title") String title,
             @RequestParam(value = "start_date") LocalDateTime start_date,
-            @RequestParam(value = "end_date") LocalDateTime end_date,
-            @RequestParam(value = "place") String place){
-        eventService.delete(id);
-        return view;
+            @RequestParam(value = "user") List<String> users_id)
+    {
+        return eventService.getAllByFilter(title, start_date, users_id);
     }
 }

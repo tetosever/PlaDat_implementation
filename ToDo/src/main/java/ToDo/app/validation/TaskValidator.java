@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 public class TaskValidator extends Validator {
 
     public void validateTask(String title, String priority){
-        validateTitle(title);
         validatePriority(priority);
     }
 

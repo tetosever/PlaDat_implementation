@@ -35,32 +35,29 @@ public class TaskController {
         return taskService.getById(id);
     }
 
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public ModelAndView deleteTaskByIdWithView(
+            @RequestParam(value = "id") String id){
+        taskService.delete(id);
+        return new ModelAndView("redirect:/");
+    }
+
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ModelAndView addTaskWithView(
-            ModelAndView view,
             @RequestParam(value = "description") String description,
             @RequestParam(value = "title") String title,
             @RequestParam(value = "priority") String priority){
         taskService.create(description, title, priority);
-        return view;
-    }
-
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public ModelAndView deleteTaskByIdWithView(
-            ModelAndView view,
-            @RequestParam(value = "id") String id){
-        taskService.delete(id);
-        return view;
+        return new ModelAndView("redirect:/");
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     public ModelAndView updateTaskWithView(
-            ModelAndView view,
             @RequestParam(value = "id") String id,
             @RequestParam(value = "description") String description,
             @RequestParam(value = "title") String title,
             @RequestParam(value = "priority") String priority){
         taskService.update(id, description, title, priority);
-        return view;
+        return new ModelAndView("redirect:/");
     }
 }

@@ -42,9 +42,9 @@ public class UsersService {
         userValidator.validateUser(name, surname, role);
 
         Users users = new Users();
-        users.setName(name);
-        users.setSurname(surname);
-        users.setRole(Role.valueOf(role));
+        users.setName(name.trim());
+        users.setSurname(surname.trim());
+        users.setRole(Role.valueOf(role.trim()));
         return userRepository.save(users);
     }
 
@@ -66,9 +66,9 @@ public class UsersService {
         userValidator.validateUser(name, surname, role);
 
         Users savedUser = userExists(uuid);
-        savedUser.setName(name);
-        savedUser.setSurname(surname);
-        savedUser.setRole(Role.valueOf(role));
+        savedUser.setName(name.trim());
+        savedUser.setSurname(surname.trim());
+        savedUser.setRole(Role.valueOf(role.trim()));
         userRepository.save(savedUser);
     }
 

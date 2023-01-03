@@ -22,8 +22,8 @@ public class Directory {
     @NonNull
     @NotBlank
     private String name;
-
-    @ManyToOne
+    
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "directory_id", referencedColumnName = "id")
     private Directory directory;
 

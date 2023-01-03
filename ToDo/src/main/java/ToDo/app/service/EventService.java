@@ -9,6 +9,8 @@ import ToDo.app.validation.EventValidator;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,27 +44,27 @@ public class EventService {
     }
 
     public Event create(String title, LocalDateTime start_date, LocalDateTime end_date, String place) {
-        eventValidator.validateEvent(title, start_date, end_date, place);
+        eventValidator.validateEvent(title, start_date);
         Event event = new Event();
-        event.setTitle(title);
+        event.setTitle(title.trim());
         event.setStart_date(start_date);
         event.setEnd_date(end_date);
-        event.setPlace(place);
+        event.setPlace(place.trim());
         return eventRepository.save(event);
     }
 
     public void update(String id, String title, LocalDateTime start_date, LocalDateTime end_date, String place){
         UUID uuid = toUUID(id);
         eventValidator.validateId(uuid);
-        eventValidator.validateEvent(title, start_date, end_date, place);
+        eventValidator.validateEvent(title, start_date);
         if (end_date != null && end_date.isBefore(start_date)) {
             throw new ToDoApplicationExceptionBadRequest("End date should not be before start date");
         }
         Event savedEvent = eventExists(uuid);
-        savedEvent.setTitle(title);
+        savedEvent.setTitle(title.trim());
         savedEvent.setStart_date(start_date);
         savedEvent.setEnd_date(end_date);
-        savedEvent.setPlace(place);
+        savedEvent.setPlace(place.trim());
         //per il momento mantengo questi, ma c'è bisogno di passarglieli e aggiornare anche questi
         savedEvent.setDirectory(savedEvent.getDirectory());
         savedEvent.setUsersList(savedEvent.getUsersList());
@@ -74,6 +76,36 @@ public class EventService {
         eventValidator.validateId(uuid);
 
         eventRepository.delete(eventExists(uuid));
+    }
+
+    public List<Event> getAllByFilter(String title, LocalDateTime start_date, List<String> users_id) {
+        List<Event> eventList = eventRepository.findAll();
+
+        //posso essere nulli potenzialmente
+        //check if users_id is a valid list and every user_id exist in repository.
+        if (checkUsers(usersService.getAll(), users_id) < users_id.size()) {
+            throw new ToDoApplicationException("An user of event does not exist");
+        }
+
+        //check sui parametri per capire quale ignorare per non distorcere la ricerca
+        if (title != null) {
+            //title is a subsequence of events titles in the repository or is equals 
+            eventList = eventList.stream().filter(
+                                    event -> event.getTitle().equals(title)
+                                            || event.getTitle().contains(title))
+                            .collect(Collectors.toList());
+        } else if (start_date != null) {
+            //start_date is equals or is before to events start_date
+            eventList = eventList.stream().filter(
+                                    event -> event.getStart_date().isAfter(start_date)
+                                            || event.getStart_date().isEqual(start_date))
+                            .collect(Collectors.toList());
+        } else if (users_id != null && !users_id.isEmpty() && eventList.size() > 0) {
+            eventList = eventList.stream().filter(
+                    event -> checkUsers(event.getUsersList(), users_id) > 0).collect(Collectors.toList());
+        }
+
+        return eventList;
     }
 
     private Event eventExists(UUID uuid){
@@ -96,4 +128,22 @@ public class EventService {
         }
         return UUID.fromString(id);
     }
+
+    //this method check if every user_id exist in repository.
+    private int checkUsers(List<Users> usersList, List<String> users_id) {
+        int count = 0;
+        if (users_id != null && !users_id.isEmpty()) {
+            for (Users user : usersList) {
+                for (String user_id : users_id) {
+                    UUID uuid = toUUID(user_id);
+                    if (uuid.equals(user.getId())) {
+                        count++;
+                        break;
+                    }
+                }
+            }
+        }
+        return count;
+    }
+
 }

@@ -8,8 +8,10 @@ import ToDo.app.exception.ToDoApplicationException;
 import ToDo.app.exception.ToDoApplicationExceptionBadRequest;
 import ToDo.app.repository.TaskRepository;
 import ToDo.app.validation.TaskValidator;
+import java.time.LocalDateTime;
 import java.util.UUID;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,9 +60,9 @@ public class TaskService {
         taskValidator.validateTask(title, description);
 
         Task savedTask = taskExists(uuid);
-        savedTask.setTitle(title);
+        savedTask.setTitle(title.trim());
         savedTask.setDescription(description);
-        savedTask.setPriority(Priority.valueOf(priority));
+        savedTask.setPriority(Priority.valueOf(priority.trim()));
         //savedTask.setDirectory(task.getDirectory());
         //avedTask.setUsersList(task.getUsersList());
         taskRepository.save(savedTask);
@@ -71,6 +73,32 @@ public class TaskService {
         taskValidator.validateId(uuid);
 
         taskRepository.delete(taskExists(uuid));
+    }
+
+    public List<Task> getAllByFilter(String title, Priority priority, List<String> users_id) {
+        List<Task> taskList = taskRepository.findAll();
+        
+        //check if users_id is a valid list and every user_id exist in repository.
+        if (checkUsers(usersService.getAll(), users_id) < users_id.size()) {
+            throw new ToDoApplicationException("An user of event does not exist");
+        }
+
+        //check sui parametri per capire quale ignorare per non distorcere la ricerca
+        if (priority != null) {
+            taskList = taskList.stream().filter(
+                                    task -> task.getPriority().equals(priority))
+                            .collect(Collectors.toList());
+        } else if (title != null && taskList.size() > 0) {
+            taskList = taskList.stream().filter(
+                                    task -> task.getTitle().equals(title)
+                                            || task.getTitle().contains(title))
+                            .collect(Collectors.toList());
+        } else if (users_id != null && !users_id.isEmpty() && taskList.size() > 0) {
+            taskList = taskList.stream().filter(
+                    task -> checkUsers(task.getUsersList(), users_id) > 0).collect(Collectors.toList());
+        }
+        
+        return taskList;
     }
 
     private Task taskExists(UUID uuid){
@@ -92,5 +120,22 @@ public class TaskService {
             }
         }
         return UUID.fromString(id);
+    }
+
+    //this method check if every user_id exist in repository.
+    private int checkUsers(List<Users> usersList, List<String> users_id) {
+        int count = 0;
+        if (users_id != null && !users_id.isEmpty()) {
+            for (Users user : usersList) {
+                for (String user_id : users_id) {
+                    UUID uuid = toUUID(user_id);
+                    if (uuid.equals(user.getId())) {
+                        count++;
+                        break;
+                    }
+                }
+            }
+        }
+        return count;
     }
 }

@@ -24,7 +24,7 @@ public class UserValidator extends Validator{
     }
 
     private void validateRole(String role){
-        if (!EnumUtils.isValidEnum(Role.class, role.trim())) {
+        if (!EnumUtils.isValidEnum(Role.class, role)) {
             throw new ToDoApplicationExceptionBadRequest("Role is not valid");
         }
     }

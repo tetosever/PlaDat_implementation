@@ -40,6 +40,12 @@ public class UserController {
         return usersService.getById(id);
     }
 
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public ModelAndView deleteUserByIdWithView(@PathVariable(value = "id") String id) {
+        usersService.delete(id);
+        return new ModelAndView("redirect:/stakeholders/");
+    }
+
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ModelAndView addUserWithView(
             @RequestParam(value = "name") String name,
@@ -58,10 +64,5 @@ public class UserController {
         usersService.update(id, name, surname, role);
         return new ModelAndView("redirect:/stakeholders/");
     }
-
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public ModelAndView deleteUserByIdWithView(@PathVariable(value = "id") String id) {
-        usersService.delete(id);
-        return new ModelAndView("redirect:/stakeholders/");
-    }
+    
 }
