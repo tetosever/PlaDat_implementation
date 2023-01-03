@@ -37,12 +37,7 @@ public class UserController {
 
     @RequestMapping(value = "/read/{id}", method = RequestMethod.GET)
     public Users getUserById(@PathVariable(value = "id") String id) {
-        UUID uuid=toUUID(id);
-        if(uuid!=null)
-        {
-            return usersService.getById(uuid);
-        }
-        return null;
+        return usersService.getById(id);
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -50,15 +45,7 @@ public class UserController {
             @RequestParam(value = "name") String name,
             @RequestParam(value = "surname") String surname,
             @RequestParam(value = "role", required = false) String role) {
-        Role r=null;
-            if(role!=null &&  EnumUtils.isValidEnum(Role.class, role.trim()))
-            {
-                r=Role.valueOf(role.trim());
-            }
-            else {
-                r=null;
-            }
-            usersService.create(name.trim(), surname.trim(), r);
+        usersService.create(name.trim(), surname.trim(), role);
         return new ModelAndView("redirect:/stakeholders/");
     }
 
@@ -68,47 +55,13 @@ public class UserController {
             @RequestParam(value = "name") String name,
             @RequestParam(value = "surname") String surname,
             @RequestParam(value = "role", required = false) String role) {
-        UUID uuid=toUUID(id);
-        if(uuid!=null)
-        {
-            Users user=usersService.getById(uuid);
-            if(user!=null)
-            {
-                user.setName(name.trim());
-                user.setSurname(surname.trim());
-                if(role!=null &&  EnumUtils.isValidEnum(Role.class, role.trim()))
-                {
-                    user.setRole(Role.valueOf(role.trim()));
-                }
-                usersService.update(user);
-            }
-        }
+        usersService.update(id, name, surname, role);
         return new ModelAndView("redirect:/stakeholders/");
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public ModelAndView deleteUserByIdWithView(@PathVariable(value = "id") String id) {
-        UUID uuid=toUUID(id);
-        if(uuid!=null)
-        {
-            Users user=usersService.getById(uuid);
-            if(user!=null)
-            {
-                usersService.delete(uuid);
-            }
-        }
+        usersService.delete(id);
         return new ModelAndView("redirect:/stakeholders/");
-    }
-    private final static Pattern UUID_REGEX_PATTERN = Pattern.compile("^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$");
-    public static UUID toUUID(String temp) {
-        if(temp!=null && temp.length()==32)
-        {
-            temp=temp.substring(0,8)+"-"+temp.substring(8,12)+"-"+temp.substring(12,16)+"-"+temp.substring(16,20)+"-"+temp.substring(20);
-            if(UUID_REGEX_PATTERN.matcher(temp).matches())
-            {
-                return UUID.fromString(temp);
-            }
-        }
-        return null;
     }
 }

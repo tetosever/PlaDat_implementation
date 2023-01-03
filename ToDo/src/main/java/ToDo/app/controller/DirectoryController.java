@@ -2,6 +2,7 @@ package ToDo.app.controller;
 
 import ToDo.app.domain.Directory;
 import ToDo.app.service.DirectoryService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,17 +18,20 @@ public class DirectoryController {
     private DirectoryService directoryService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView getAllDirectories(){
+    public ModelAndView getAllDirectoriesWithView(){
         ModelAndView view = new ModelAndView("directories.html");
         view.addObject("directories", directoryService.getAll());
         return view;
     }
 
-    @RequestMapping(value = "/getByName", method = RequestMethod.GET)
-    public ModelAndView getByName(@RequestParam(value = "directory_name", required = false)String name){
-        ModelAndView view = new ModelAndView("view-all-users.html");
-        view.addObject("directories", directoryService.getAll());
-        return view;
+    @RequestMapping(value = "/read", method = RequestMethod.GET)
+    public List<Directory> getAllDirectories(){
+        return directoryService.getAll();
+    }
+
+    @RequestMapping(value = "/read/{id}", method = RequestMethod.GET)
+    public Directory getDirectoryById(@RequestParam(value = "id") String id){
+        return directoryService.getById(id);
     }
 
     //NB. bisogna capire la strategia da adottare. Se ricarico i dati nella stessa chiamata o in una separata
@@ -35,24 +39,25 @@ public class DirectoryController {
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView create(
             ModelAndView view,
-            @RequestParam(value = "directory", required = false)Directory directory){
-        directoryService.create(directory);
+            @RequestParam(value = "name") String name) {
+        directoryService.create(name);
         return view;
     }
 
-    @RequestMapping(method = RequestMethod.DELETE)
+    @RequestMapping(method = RequestMethod.GET)
     public ModelAndView delete(
             ModelAndView view,
-            @RequestParam(value = "directory", required = false)Directory directory){
-        directoryService.delete(directory);
+            @RequestParam(value = "id") String id){
+        directoryService.delete(id);
         return view;
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
+    @RequestMapping(method = RequestMethod.POST)
     public ModelAndView update(
             ModelAndView view,
-            @RequestParam(value = "directory", required = false)Directory directory){
-        directoryService.delete(directory);
+            @RequestParam(value = "id") String id,
+            @RequestParam(value = "name") String name){
+        directoryService.update(id, name);
         return view;
     }
 }

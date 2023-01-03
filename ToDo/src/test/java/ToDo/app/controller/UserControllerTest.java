@@ -34,9 +34,9 @@ public class UserControllerTest {
 
         assertTrue(userRepository.findAll().size() == 2);
 
-        mockMvc.perform(get("/users/getAllUsers"))
+        mockMvc.perform(get("/stakeholders"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("view-all-users"));
+                .andExpect(view().name("stakeholders.html"));
     }
 
     private Users createUsers(String name, String surname, Role role){

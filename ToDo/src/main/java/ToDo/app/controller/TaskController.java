@@ -1,17 +1,18 @@
 package ToDo.app.controller;
 
-import ToDo.app.domain.Event;
 import ToDo.app.domain.Task;
 import ToDo.app.service.TaskService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/task")
+@RequestMapping("/tasks")
 public class TaskController {
 
     @Autowired
@@ -19,34 +20,47 @@ public class TaskController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView getAllDirectories(){
-        ModelAndView view = new ModelAndView("view-all-users.html");
-        view.addObject("directories", taskService.getAll());
+        ModelAndView view = new ModelAndView("home.html");
+        view.addObject("tasks", taskService.getAll());
         return view;
     }
 
-    //NB. bisogna capire la strategia da adottare. Se li ricarico i dati nella stessa chiamata o in una separata
+    @RequestMapping(value = "/read", method = RequestMethod.GET)
+    public List<Task> getAllTasks(){
+        return taskService.getAll();
+    }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView create(
+    @RequestMapping(value = "/read/{id}", method = RequestMethod.GET)
+    public Task getTaskById(@PathVariable(value = "id") String id){
+        return taskService.getById(id);
+    }
+
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public ModelAndView addTaskWithView(
             ModelAndView view,
-            @RequestParam(value = "directory", required = false) Task task){
-        taskService.create(task);
+            @RequestParam(value = "description") String description,
+            @RequestParam(value = "title") String title,
+            @RequestParam(value = "priority") String priority){
+        taskService.create(description, title, priority);
         return view;
     }
 
-    @RequestMapping(method = RequestMethod.DELETE)
-    public ModelAndView delete(
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public ModelAndView deleteTaskByIdWithView(
             ModelAndView view,
-            @RequestParam(value = "directory", required = false) Task task){
-        taskService.delete(task);
+            @RequestParam(value = "id") String id){
+        taskService.delete(id);
         return view;
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
-    public ModelAndView update(
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    public ModelAndView updateTaskWithView(
             ModelAndView view,
-            @RequestParam(value = "directory", required = false)Task task){
-        taskService.update(task);
+            @RequestParam(value = "id") String id,
+            @RequestParam(value = "description") String description,
+            @RequestParam(value = "title") String title,
+            @RequestParam(value = "priority") String priority){
+        taskService.update(id, description, title, priority);
         return view;
     }
 }
