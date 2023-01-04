@@ -52,8 +52,10 @@ public class EventController {
             @RequestParam(value = "title") String title,
             @RequestParam(value = "start_date") LocalDateTime start_date,
             @RequestParam(value = "end_date", required = false) LocalDateTime end_date,
-            @RequestParam(value = "place") String place){
-        eventService.create(title, start_date, end_date, place);
+            @RequestParam(value = "place") String place,
+            @RequestParam(value = "user_id") String user_id,
+            @RequestParam(value = "directory_id") String directory_id){
+        eventService.create(title, start_date, end_date, place, user_id, directory_id);
         return new ModelAndView("redirect:/");
     }
 
@@ -63,8 +65,10 @@ public class EventController {
             @RequestParam(value = "title") String title,
             @RequestParam(value = "start_date") LocalDateTime start_date,
             @RequestParam(value = "end_date", required = false) LocalDateTime end_date,
-            @RequestParam(value = "place") String place){
-        eventService.update(id, title, start_date, end_date, place);
+            @RequestParam(value = "place") String place,
+            @RequestParam(value = "user_id") String user_id,
+            @RequestParam(value = "directory_id") String directory_id){
+        eventService.update(id, title, start_date, end_date, place, user_id, directory_id);
         return new ModelAndView("redirect:/");
     }
 

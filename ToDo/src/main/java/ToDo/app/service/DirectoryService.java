@@ -36,22 +36,27 @@ public class DirectoryService {
         return directoryExists(uuid);
     }
 
-    public Directory create(String name){
+    public Directory create(String name, String directory_id){
         directoryValidator.validateName(name);
 
         Directory directory = new Directory();
         directory.setName(name);
+        if (directory_id != null && !directory_id.isEmpty()) {
+            directory.setDirectory(directoryExists(toUUID(directory_id)));
+        }
         return directoryRepository.save(directory);
     }
 
-    public void update(String id, String name){
+    public void update(String id, String name, String directory_id){
         UUID uuid = toUUID(id);
         directoryValidator.validateId(uuid);
         directoryValidator.validateName(name);
 
         Directory savedDirectory = directoryExists(uuid);
         savedDirectory.setName(name);
-        //savedDirectory.setDirectory(directory.getDirectory());
+        if (directory_id != null && !directory_id.isEmpty()) {
+            savedDirectory.setDirectory(directoryExists(toUUID(directory_id)));
+        }
         directoryRepository.save(savedDirectory);
     }
 

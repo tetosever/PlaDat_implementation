@@ -1,5 +1,6 @@
 package ToDo.app.service;
 
+import ToDo.app.domain.Directory;
 import ToDo.app.domain.Event;
 import ToDo.app.domain.Users;
 import ToDo.app.exception.ToDoApplicationException;
@@ -43,31 +44,60 @@ public class EventService {
         return eventRepository.findAll();
     }
 
-    public Event create(String title, LocalDateTime start_date, LocalDateTime end_date, String place) {
-        eventValidator.validateEvent(title, start_date);
+    public Event create(
+            String title, 
+            LocalDateTime start_date, 
+            LocalDateTime end_date, 
+            String place, 
+            String user_id, 
+            String directory_id) {
+        eventValidator.validateEvent(title, start_date, end_date, user_id, directory_id);
+
+        Directory newDirectory = directoryService.getById(directory_id);
+        Users newUsers = usersService.getById(user_id);
+        
         Event event = new Event();
         event.setTitle(title.trim());
         event.setStart_date(start_date);
         event.setEnd_date(end_date);
         event.setPlace(place.trim());
+        if (event.getDirectory().getId() != newDirectory.getId()) {
+            event.setDirectory(newDirectory);
+        }
+        if (!event.getUsersList().contains(newUsers)) {
+            event.getUsersList().add(newUsers);
+        }
+        
         return eventRepository.save(event);
     }
 
-    public void update(String id, String title, LocalDateTime start_date, LocalDateTime end_date, String place){
+    public void update(
+            String id, 
+            String title, 
+            LocalDateTime start_date, 
+            LocalDateTime end_date, 
+            String place, 
+            String user_id, 
+            String directory_id){
         UUID uuid = toUUID(id);
         eventValidator.validateId(uuid);
-        eventValidator.validateEvent(title, start_date);
-        if (end_date != null && end_date.isBefore(start_date)) {
-            throw new ToDoApplicationExceptionBadRequest("End date should not be before start date");
-        }
+        eventValidator.validateEvent(title, start_date, end_date, user_id, directory_id);
+        
+        Directory newDirectory = directoryService.getById(directory_id);
+        Users newUsers = usersService.getById(user_id);
+        
         Event savedEvent = eventExists(uuid);
         savedEvent.setTitle(title.trim());
         savedEvent.setStart_date(start_date);
         savedEvent.setEnd_date(end_date);
         savedEvent.setPlace(place.trim());
         //per il momento mantengo questi, ma c'è bisogno di passarglieli e aggiornare anche questi
-        savedEvent.setDirectory(savedEvent.getDirectory());
-        savedEvent.setUsersList(savedEvent.getUsersList());
+        if (savedEvent.getDirectory().getId() != newDirectory.getId()) {
+            savedEvent.setDirectory(newDirectory);
+        }
+        if (!savedEvent.getUsersList().contains(newUsers)) {
+            savedEvent.getUsersList().add(newUsers);
+        }
         eventRepository.save(savedEvent);
     }
 

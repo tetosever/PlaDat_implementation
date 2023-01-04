@@ -46,8 +46,10 @@ public class TaskController {
     public ModelAndView addTaskWithView(
             @RequestParam(value = "description") String description,
             @RequestParam(value = "title") String title,
-            @RequestParam(value = "priority") String priority){
-        taskService.create(description, title, priority);
+            @RequestParam(value = "priority") String priority,
+            @RequestParam(value = "user_id") String user_id,
+            @RequestParam(value = "directory_id") String directory_id){
+        taskService.create(description, title, priority, user_id, directory_id);
         return new ModelAndView("redirect:/");
     }
 
@@ -56,8 +58,10 @@ public class TaskController {
             @RequestParam(value = "id") String id,
             @RequestParam(value = "description") String description,
             @RequestParam(value = "title") String title,
-            @RequestParam(value = "priority") String priority){
-        taskService.update(id, description, title, priority);
+            @RequestParam(value = "priority") String priority,
+            @RequestParam(value = "user_id") String user_id,
+            @RequestParam(value = "directory_id") String directory_id){
+        taskService.update(id, description, title, priority, user_id, directory_id);
         return new ModelAndView("redirect:/");
     }
 }

@@ -7,9 +7,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class EventValidator extends Validator {
 
-    public void validateEvent(String title, LocalDateTime start_date) {
+    public void validateEvent(String title, LocalDateTime start_date, LocalDateTime end_date, String user_id, String directory_id) {
         validateTitleAndPlace(title);
-        validateDuration(start_date);
+        validateDuration(start_date, end_date);
+        validateDirectoryId(directory_id);
+        validateUsersId(user_id);
     }
 
     private void validateTitleAndPlace(String title){
@@ -18,9 +20,24 @@ public class EventValidator extends Validator {
         }
     }
 
-    private void validateDuration(LocalDateTime start_date){
+    private void validateDuration(LocalDateTime start_date, LocalDateTime end_date){
         if (start_date == null ) {
             throw new ToDoApplicationExceptionBadRequest("Start date is not valid");
+        }
+        if (end_date != null && end_date.isBefore(start_date)) {
+            throw new ToDoApplicationExceptionBadRequest("End date should not be before start date");
+        }
+    }
+
+    private void validateUsersId(String user_id){
+        if (user_id.trim() == null || user_id.trim().isEmpty()) {
+            throw new ToDoApplicationExceptionBadRequest("User id is null or empty");
+        }
+    }
+
+    private void validateDirectoryId(String directory_id){
+        if (directory_id.trim() == null || directory_id.trim().isEmpty()) {
+            throw new ToDoApplicationExceptionBadRequest("Directory id is null or empty");
         }
     }
 }

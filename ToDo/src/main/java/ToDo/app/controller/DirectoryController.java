@@ -43,16 +43,18 @@ public class DirectoryController {
     
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ModelAndView addDirectoriesWithView(
-            @RequestParam(value = "name") String name) {
-        directoryService.create(name);
+            @RequestParam(value = "name") String name,
+            @RequestParam(value = "directory_id", required = false) String directory_id) {
+        directoryService.create(name, directory_id);
         return new ModelAndView("redirect:/directories/");
     }
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     public ModelAndView updateDirectoriesWithView(
             @RequestParam(value = "id") String id,
-            @RequestParam(value = "name") String name){
-        directoryService.update(id, name);
+            @RequestParam(value = "name") String name,
+            @RequestParam(value = "directory_id", required = false) String directory_id){
+        directoryService.update(id, name, directory_id);
         return new ModelAndView("redirect:/directories/");
     }
 }

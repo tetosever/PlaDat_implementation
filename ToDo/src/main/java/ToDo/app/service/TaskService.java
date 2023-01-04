@@ -1,5 +1,6 @@
 package ToDo.app.service;
 
+import ToDo.app.domain.Directory;
 import ToDo.app.domain.Event;
 import ToDo.app.domain.Priority;
 import ToDo.app.domain.Task;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,27 +46,37 @@ public class TaskService {
         return taskRepository.findAll();
     }
 
-    public Task create(String description, String title, String priority){
-        taskValidator.validateTask(title, priority);
+    public Task create(String description, String title, String priority, String user_id, String directory_id){
+        taskValidator.validateTask(title, priority, user_id, directory_id);
 
         Task task = new Task();
         task.setTitle(title);
         task.setPriority(Priority.valueOf(priority));
         task.setDescription(description);
+        task.getUsersList().add(usersService.getById(user_id));
+        task.setDirectory(directoryService.getById(directory_id));
         return taskRepository.save(task);
     }
 
-    public void update(String id, String description, String title, String priority){
+    public void update(
+            String id, String description, String title, String priority, String user_id, String directory_id){
         UUID uuid = toUUID(id);
         taskValidator.validateId(uuid);
-        taskValidator.validateTask(title, description);
+        taskValidator.validateTask(title, description, user_id, directory_id);
+
+        Directory newDirectory = directoryService.getById(directory_id);
+        Users newUsers = usersService.getById(user_id);
 
         Task savedTask = taskExists(uuid);
         savedTask.setTitle(title.trim());
         savedTask.setDescription(description);
         savedTask.setPriority(Priority.valueOf(priority.trim()));
-        //savedTask.setDirectory(task.getDirectory());
-        //avedTask.setUsersList(task.getUsersList());
+        if (savedTask.getDirectory().getId() != newDirectory.getId()) {
+            savedTask.setDirectory(newDirectory);
+        }
+        if (!savedTask.getUsersList().contains(newUsers)) {
+            savedTask.getUsersList().add(newUsers);
+        }
         taskRepository.save(savedTask);
     }
 
