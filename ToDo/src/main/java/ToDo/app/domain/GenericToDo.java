@@ -25,7 +25,7 @@ import org.hibernate.annotations.Type;
 @Setter
 @Getter
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class GenericToDo {
 
     @Id
@@ -41,7 +41,6 @@ public class GenericToDo {
     @NotNull
     @ManyToMany(cascade = CascadeType.REFRESH,
             fetch = FetchType.EAGER)
-            //mappedBy = "genericToDoList")
     @JoinTable(
             name = "geteric_to_do_users",
             joinColumns = 

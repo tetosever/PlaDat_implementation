@@ -5,6 +5,7 @@ import ToDo.app.service.DirectoryService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,7 +37,7 @@ public class DirectoryController {
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public ModelAndView deleteDirectoriesByIdWithView(
-            @RequestParam(value = "id") String id){
+            @PathVariable(value = "id") String id){
         directoryService.delete(id);
         return new ModelAndView("redirect:/directories/");
     }
@@ -51,7 +52,7 @@ public class DirectoryController {
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     public ModelAndView updateDirectoriesWithView(
-            @RequestParam(value = "id") String id,
+            @PathVariable(value = "id") String id,
             @RequestParam(value = "name") String name,
             @RequestParam(value = "directory_id", required = false) String directory_id){
         directoryService.update(id, name, directory_id);

@@ -116,7 +116,7 @@ public class EventService {
 
         //posso essere nulli potenzialmente
         //check if users_id is a valid list and every user_id exist in repository.
-        if (checkUsers(usersService.getAll(), users_id) < users_id.size()) {
+        if (users_id != null && checkUsers(usersService.getAll(), users_id) < users_id.size()) {
             throw new ToDoApplicationException("An user of event does not exist");
         }
 
@@ -125,15 +125,17 @@ public class EventService {
             //title is a subsequence of events titles in the repository or is equals 
             eventList = eventList.stream().filter(
                                     event -> event.getTitle().equals(title)
-                                            || event.getTitle().contains(title))
+                                            || event.getTitle().toLowerCase().contains(title.toLowerCase()))
                             .collect(Collectors.toList());
-        } else if (start_date != null) {
+        }
+        if (start_date != null) {
             //start_date is equals or is before to events start_date
             eventList = eventList.stream().filter(
                                     event -> event.getStart_date().isAfter(start_date)
                                             || event.getStart_date().isEqual(start_date))
                             .collect(Collectors.toList());
-        } else if (users_id != null && !users_id.isEmpty() && eventList.size() > 0) {
+        }
+        if (users_id != null && !users_id.isEmpty() && eventList.size() > 0) {
             eventList = eventList.stream().filter(
                     event -> checkUsers(event.getUsersList(), users_id) > 0).collect(Collectors.toList());
         }
