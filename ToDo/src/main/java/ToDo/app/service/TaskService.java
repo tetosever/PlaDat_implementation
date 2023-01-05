@@ -10,6 +10,7 @@ import ToDo.app.exception.ToDoApplicationExceptionBadRequest;
 import ToDo.app.repository.TaskRepository;
 import ToDo.app.validation.TaskValidator;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.UUID;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -48,11 +49,13 @@ public class TaskService {
 
     public Task create(String description, String title, String priority, String user_id, String directory_id){
         taskValidator.validateTask(title, priority, user_id, directory_id);
-
+        Users u = usersService.getById(user_id);
+        
         Task task = new Task();
         task.setTitle(title);
         task.setPriority(Priority.valueOf(priority));
         task.setDescription(description);
+        task.setUsersList(new ArrayList<>());
         task.getUsersList().add(usersService.getById(user_id));
         task.setDirectory(directoryService.getById(directory_id));
         return taskRepository.save(task);
@@ -62,7 +65,7 @@ public class TaskService {
             String id, String description, String title, String priority, String user_id, String directory_id){
         UUID uuid = toUUID(id);
         taskValidator.validateId(uuid);
-        taskValidator.validateTask(title, description, user_id, directory_id);
+        taskValidator.validateTask(title, priority, user_id, directory_id);
 
         Directory newDirectory = directoryService.getById(directory_id);
         Users newUsers = usersService.getById(user_id);

@@ -19,7 +19,7 @@ public class TaskController {
     private TaskService taskService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView getAllDirectories(){
+    public ModelAndView getAllTaskWithView(){
         ModelAndView view = new ModelAndView("home.html");
         view.addObject("tasks", taskService.getAll());
         return view;
@@ -37,7 +37,7 @@ public class TaskController {
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public ModelAndView deleteTaskByIdWithView(
-            @RequestParam(value = "id") String id){
+            @PathVariable(value = "id") String id){
         taskService.delete(id);
         return new ModelAndView("redirect:/");
     }
@@ -55,7 +55,7 @@ public class TaskController {
 
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     public ModelAndView updateTaskWithView(
-            @RequestParam(value = "id") String id,
+            @PathVariable(value = "id") String id,
             @RequestParam(value = "description") String description,
             @RequestParam(value = "title") String title,
             @RequestParam(value = "priority") String priority,

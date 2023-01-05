@@ -8,6 +8,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.UUID;
+import org.hibernate.annotations.Type;
 
 @Setter
 @Getter
@@ -16,7 +17,8 @@ public class Directory {
 
     @Id
     @GeneratedValue
-    @Column(columnDefinition = "uuid")
+    @Column(columnDefinition = "char(36)")
+    @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID id;
 
     @NonNull

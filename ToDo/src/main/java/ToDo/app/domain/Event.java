@@ -1,13 +1,8 @@
 package ToDo.app.domain;
 
+import java.time.LocalDate;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
-import java.util.List;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -19,9 +14,9 @@ public class Event extends GenericToDo{
 
     @NonNull
     @NotNull
-    private LocalDateTime start_date;
+    private LocalDate start_date;
 
-    private LocalDateTime end_date;
+    private LocalDate end_date;
 
     private String place;
 }

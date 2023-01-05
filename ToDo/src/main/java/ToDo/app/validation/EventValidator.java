@@ -1,13 +1,14 @@
 package ToDo.app.validation;
 
 import ToDo.app.exception.ToDoApplicationExceptionBadRequest;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import org.springframework.stereotype.Component;
 
 @Component
 public class EventValidator extends Validator {
 
-    public void validateEvent(String title, LocalDateTime start_date, LocalDateTime end_date, String user_id, String directory_id) {
+    public void validateEvent(String title, LocalDate start_date, LocalDate end_date, String user_id, String directory_id) {
         validateTitleAndPlace(title);
         validateDuration(start_date, end_date);
         validateDirectoryId(directory_id);
@@ -20,7 +21,7 @@ public class EventValidator extends Validator {
         }
     }
 
-    private void validateDuration(LocalDateTime start_date, LocalDateTime end_date){
+    private void validateDuration(LocalDate start_date, LocalDate end_date){
         if (start_date == null ) {
             throw new ToDoApplicationExceptionBadRequest("Start date is not valid");
         }

@@ -4,19 +4,19 @@ import ToDo.app.domain.Directory;
 import ToDo.app.domain.Event;
 import ToDo.app.domain.Users;
 import ToDo.app.exception.ToDoApplicationException;
-import ToDo.app.exception.ToDoApplicationExceptionBadRequest;
 import ToDo.app.repository.EventRepository;
 import ToDo.app.validation.EventValidator;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class EventService {
@@ -46,27 +46,25 @@ public class EventService {
 
     public Event create(
             String title, 
-            LocalDateTime start_date, 
-            LocalDateTime end_date, 
+            String start_date, 
+            String end_date, 
             String place, 
             String user_id, 
             String directory_id) {
-        eventValidator.validateEvent(title, start_date, end_date, user_id, directory_id);
-
-        Directory newDirectory = directoryService.getById(directory_id);
-        Users newUsers = usersService.getById(user_id);
+        
+        eventValidator.validateEvent(title, 
+                formatterStringToDateTime(start_date), 
+                formatterStringToDateTime(end_date), 
+                user_id, directory_id);
         
         Event event = new Event();
         event.setTitle(title.trim());
-        event.setStart_date(start_date);
-        event.setEnd_date(end_date);
+        event.setStart_date(formatterStringToDateTime(start_date));
+        event.setEnd_date(formatterStringToDateTime(end_date));
         event.setPlace(place.trim());
-        if (event.getDirectory().getId() != newDirectory.getId()) {
-            event.setDirectory(newDirectory);
-        }
-        if (!event.getUsersList().contains(newUsers)) {
-            event.getUsersList().add(newUsers);
-        }
+        event.setUsersList(new ArrayList<>());
+        event.getUsersList().add(usersService.getById(user_id));
+        event.setDirectory(directoryService.getById(directory_id));
         
         return eventRepository.save(event);
     }
@@ -74,22 +72,26 @@ public class EventService {
     public void update(
             String id, 
             String title, 
-            LocalDateTime start_date, 
-            LocalDateTime end_date, 
+            String start_date,
+            String end_date, 
             String place, 
             String user_id, 
             String directory_id){
+        
         UUID uuid = toUUID(id);
         eventValidator.validateId(uuid);
-        eventValidator.validateEvent(title, start_date, end_date, user_id, directory_id);
+        eventValidator.validateEvent(title, 
+                formatterStringToDateTime(start_date), 
+                formatterStringToDateTime(end_date), 
+                user_id, directory_id);
         
         Directory newDirectory = directoryService.getById(directory_id);
         Users newUsers = usersService.getById(user_id);
         
         Event savedEvent = eventExists(uuid);
         savedEvent.setTitle(title.trim());
-        savedEvent.setStart_date(start_date);
-        savedEvent.setEnd_date(end_date);
+        savedEvent.setStart_date(formatterStringToDateTime(start_date));
+        savedEvent.setEnd_date(formatterStringToDateTime(end_date));
         savedEvent.setPlace(place.trim());
         //per il momento mantengo questi, ma c'è bisogno di passarglieli e aggiornare anche questi
         if (savedEvent.getDirectory().getId() != newDirectory.getId()) {
@@ -108,8 +110,9 @@ public class EventService {
         eventRepository.delete(eventExists(uuid));
     }
 
-    public List<Event> getAllByFilter(String title, LocalDateTime start_date, List<String> users_id) {
+    public List<Event> getAllByFilter(String title, String start_date_string, List<String> users_id) {
         List<Event> eventList = eventRepository.findAll();
+        LocalDate start_date = formatterStringToDateTime(start_date_string);
 
         //posso essere nulli potenzialmente
         //check if users_id is a valid list and every user_id exist in repository.
@@ -174,6 +177,15 @@ public class EventService {
             }
         }
         return count;
+    }
+    
+    private LocalDate formatterStringToDateTime(String date) {
+        LocalDate dateTime = null;
+        if (date != null && !date.isEmpty()) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            dateTime = LocalDate.parse(date, formatter);
+        }
+        return dateTime;
     }
 
 }

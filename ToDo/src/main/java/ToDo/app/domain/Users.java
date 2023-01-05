@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,7 +19,8 @@ public class Users {
 
     @Id
     @GeneratedValue
-    @Column(columnDefinition = "uuid")
+    @Column(columnDefinition = "char(36)")
+    @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID id;
 
     @NonNull
@@ -31,12 +33,8 @@ public class Users {
 
     @Enumerated(EnumType.STRING)
     private Role role;
-
-    @ManyToMany(cascade = CascadeType.REFRESH)
-    @JoinTable(
-            name = "getericToDo_has_users",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "genericToDo_id"))
+    
+    @ManyToMany(mappedBy = "usersList")
     private List<GenericToDo> genericToDoList;
 
 }
