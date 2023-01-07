@@ -7,14 +7,12 @@ import ToDo.app.exception.ToDoApplicationException;
 import ToDo.app.repository.EventRepository;
 import ToDo.app.validation.EventValidator;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -110,7 +108,8 @@ public class EventService {
         eventRepository.delete(eventExists(uuid));
     }
 
-    public List<Event> getAllByFilter(String title, String start_date_string, List<String> users_id) {
+    /*
+    public List<Event> getAllByFilter(String title, String start_date_string, String Name) {
         List<Event> eventList = eventRepository.findAll();
         LocalDate start_date = formatterStringToDateTime(start_date_string);
 
@@ -141,6 +140,49 @@ public class EventService {
         }
 
         return eventList;
+    }
+    
+     */
+    
+    public List<Event> getAllByFilter(String title, String start_date, String name) {
+        List<Event> eventList = new ArrayList<>();
+        
+        if(title != null){
+            if(eventRepository.findByTitleContains(title).isEmpty()) {
+                return new ArrayList<>();
+            }
+            eventList.addAll(eventRepository.findByTitleContains(title));
+        }
+        if(start_date != null){
+            if(eventRepository.findByStart_dateAfter(formatterStringToDateTime(start_date)).isEmpty()) {
+                return new ArrayList<>();
+            }
+            eventList = checkEvents(eventList, eventRepository.findByStart_dateAfter(formatterStringToDateTime(start_date)));
+        }
+        if(name != null && !name.isEmpty()){
+            if(eventRepository.findByNameIsContaining(name).isEmpty()) {
+                return new ArrayList<>();
+            }
+            eventList = checkEvents(eventList, eventRepository.findByNameIsContaining("%" + name + "%"));
+        }
+        return eventList;
+    }
+    
+    private List<Event> checkEvents(List<Event> eventList1, List<Event> eventList2) {
+        if (eventList1 == null || eventList1.isEmpty()) {
+            eventList1 = eventList2;
+        }
+        else {
+            for (Event event2 : eventList2) {
+                for (Event event1 : eventList1) {
+                    if (!event2.getId().equals(event1.getId())){
+                        eventList1.add(event2);
+                        break;
+                    }
+                }
+            }
+        }
+        return eventList1;
     }
 
     private Event eventExists(UUID uuid){

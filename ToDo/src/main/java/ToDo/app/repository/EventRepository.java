@@ -1,21 +1,26 @@
 package ToDo.app.repository;
 
 import ToDo.app.domain.Event;
-import ToDo.app.domain.Users;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.UUID;
-
 @Repository
 public interface EventRepository extends JpaRepository<Event, UUID> {
     
-    @Query(value = "SELECT '*' " +
+    List<Event> findByTitleContains(String title);
+    
+    @Query(value = "SELECT event " +
             "FROM Event event " +
-            "INNER JOIN event.usersList " +
-            "WHERE event.title LIKE :title AND event.start_date > :startdate AND :usersList IN event.usersList")
-    List<Event> findByTitleAndStartDateAndUserList(String title, LocalDateTime startdate, List<Users> usersList);
+            "WHERE event.start_date > :startdate")
+    List<Event> findByStart_dateAfter(LocalDate startdate);
+
+    @Query(value = "SELECT event " +
+        "FROM Event event " +
+        "JOIN event.usersList user " +
+        "WHERE :name IN user.name OR :name IN user.surname")
+    List<Event> findByNameIsContaining(String name);
 }

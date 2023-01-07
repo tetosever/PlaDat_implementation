@@ -70,10 +70,11 @@ public class EventController {
 
     @RequestMapping(value = "/events/read/{title}/{start_date}/{user}", method = RequestMethod.GET)
     public List<Event> getAllByFilter(
-            @RequestParam(value = "title") String title,
-            @RequestParam(value = "start_date") String start_date,
-            @RequestParam(value = "user") List<String> users_id)
+            @PathVariable(value = "title") String title,
+            @PathVariable(value = "start_date") String start_date,
+            @PathVariable(value = "user") String name)
     {
-        return eventService.getAllByFilter(title, start_date, users_id);
+        //return eventService.getAllByFilter(title, start_date, users_id);
+        return eventService.getAllByFilter(title, start_date, name);
     }
 }

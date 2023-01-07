@@ -50,7 +50,7 @@ public class GenericToDo {
     private List<Users> usersList;
 
     @NotNull
-    @ManyToOne(cascade = CascadeType.REFRESH)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "directory_id", referencedColumnName = "id", nullable = false)
     private Directory directory;
 }

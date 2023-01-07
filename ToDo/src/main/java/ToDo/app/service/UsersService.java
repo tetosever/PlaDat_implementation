@@ -37,6 +37,10 @@ public class UsersService {
     public List<Users> getAll(){
         return userRepository.findAll();
     }
+    
+    public List<Users> getAllContainingName(String name) {
+        return userRepository.findByNameIsContaining(name);
+    }
 
     public Users create(String name, String surname, String role){
         userValidator.validateUser(name, surname, role);

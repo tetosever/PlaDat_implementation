@@ -1,5 +1,6 @@
 package ToDo.app.domain;
 
+import java.util.List;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -28,5 +29,8 @@ public class Directory {
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "directory_id", referencedColumnName = "id")
     private Directory directory;
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "directory")
+    private List<GenericToDo> genericToDoList;
 
 }
