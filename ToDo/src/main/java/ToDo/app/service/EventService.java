@@ -176,12 +176,15 @@ public class EventService {
     
     private LocalDate formatterStringToDateTime(String date) {
         LocalDate dateTime = null;
-        if (date != null && !date.isEmpty()) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            dateTime = LocalDate.parse(date, formatter);
+        try {
+            if (date != null && !date.isEmpty()) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                dateTime = LocalDate.parse(date, formatter);
+            }
         }
-        else {
-            throw new ToDoApplicationExceptionBadRequest("Start Date have wrong format. Should be yyyy-MM-dd !");
+        catch(Exception e) {
+            throw new ToDoApplicationExceptionBadRequest(
+                "Start Date have wrong format. Should be yyyy-MM-dd !\n" + e.getMessage());
         }
         return dateTime;
     }
