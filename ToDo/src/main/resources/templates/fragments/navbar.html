@@ -2,13 +2,15 @@
     <div class="container-fluid">
         <ul class="nav nav-pills nav-fill gap-2 p-1 small rounded-5" id="pillNav2" role="tablist">
             <li class="nav-item" role="presentation">
-                <a class="nav-link rounded-5"  th:classappend="${who=='directories'} ? 'active' : ''" th:href="@{'/directories'}"><span>Directories</span></a>
+                <a class="nav-link rounded-5" th:classappend="${who=='directories'} ? 'active' : ''"
+                   th:href="@{'/directories'}"><span>Directories</span></a>
             </li>
             <li class="nav-item" role="presentation">
                 <a class="nav-link rounded-5" th:classappend="${who=='home'} ? 'active' : ''" th:href="@{'/'}"><span>Home</span></a>
             </li>
             <li class="nav-item" role="presentation">
-                <a class="nav-link rounded-5" th:classappend="${who=='stakeholders'} ? 'active' : ''" th:href="@{'/stakeholders'}"><span>Stakeholders</span></a>
+                <a class="nav-link rounded-5" th:classappend="${who=='stakeholders'} ? 'active' : ''"
+                   th:href="@{'/stakeholders'}"><span>Stakeholders</span></a>
             </li>
         </ul>
     </div>

@@ -47,7 +47,10 @@ h1, h2, h3, h4, h5, h6, h7 {
     width: 40%;
     margin: 0 auto 30px;
 }
-
+.events, .task
+{
+    height: calc(100vh - 135px);
+}
 .task-header > div:nth-child(2), .events-header > div:nth-child(2) {
     text-align: center;
     display: flex;
@@ -82,11 +85,6 @@ h1, h2, h3, h4, h5, h6, h7 {
     margin-left: 0px;
 }
 
-.task-header > div:nth-child(2) > button:hover, .events-header > div:nth-child(2) > button:hover {
-    background-color: rgb(218, 220, 224);
-    transition-duration: 1s;
-}
-
 .task, .events {
     padding: 20px;
     border-radius: 20px;
@@ -94,7 +92,7 @@ h1, h2, h3, h4, h5, h6, h7 {
     background-color: rgba(0, 0, 0, .4);
 }
 
-.task-body > div, .events-body > div {
+.card-task, .card-event {
     border-radius: 10px;
     margin-top: 20px;
     height: 70px;
@@ -323,7 +321,10 @@ input:focus {
     margin-top: 10px;
     margin-bottom: 0px;
 }
-
+button > p, button > svg
+{
+    pointer-events: none !important;
+}
 .cardDirectory > div {
     margin-left: auto;
     margin-bottom: 10px;
@@ -513,7 +514,23 @@ form {
     margin-right: 30px;
     margin-bottom: 30px;
 }
-
+.nav-link
+{
+    color:white !important;
+}
+.filter-active
+{
+    background-color: #7a1cc7;
+}
+.filter:hover
+{
+    transition-duration: 1s;
+    color:#7a1cc7 !important;
+}
+.filter:focus-within
+{
+    color:#7a1cc7 !important;
+}
 @keyframes typing {
     from {
         width: 0
