@@ -13,34 +13,25 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.doReturn;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @ActiveProfiles("test")
-public class EventServiceTest {
+public class EventServiceIntegrationTest {
 
     @Autowired
     private EventService eventService;
     
     @Autowired
     private EventRepository eventRepository;
-    
-    @Autowired
-    private UsersService usersService;
     
     @Autowired
     private UserRepository userRepository;
@@ -111,7 +102,7 @@ public class EventServiceTest {
     @Test
     public void getAllByFilter_whenOnlyStartDateTest() {
         List<Event> eventList = eventService.getAllByFilter(null, LocalDate.now().toString(), null);
-        assertTrue(eventList.size() == 1);
+        assertTrue(eventList.size() == 3);
         assertEquals("Event1 title should be equals", eventList.get(0).getTitle(), "Prova1");
 
         assertEquals("Directory name should be equals", eventList.get(0).getDirectory().getName(), "Esame1");
@@ -119,7 +110,7 @@ public class EventServiceTest {
 
     @Test
     public void getAllByFilter_whenOnlyUserTest() {
-        List<Event> eventList = eventService.getAllByFilter(null, null, "Matteo");
+        List<Event> eventList = eventService.getAllByFilter(null, null, "Severgnini");
         assertTrue(eventList.size() == 2);
         assertEquals("Event1 title should be equals", eventList.get(0).getTitle(), "Prova1");
         assertEquals("Event2 title should be equals", eventList.get(1).getTitle(), "Prova1");
@@ -131,24 +122,17 @@ public class EventServiceTest {
 
     @Test
     public void getAllByFilter_whenAllParametersDoesNotFoundTest() {
-        event1.setTitle("Banana");
-        eventRepository.save(event1);
-        List<Event> eventList = eventService.getAllByFilter("Banana", LocalDate.now().toString(), "Piazza");
+        List<Event> eventList = eventService.getAllByFilter("Prova1", LocalDate.now().toString(), "Piazza");
         assertTrue(eventList.size() == 0);
-        //assertEquals("Event1 title should be equals", eventList.get(0).getTitle(), "Banana");
-       
-        //assertEquals("Directory name should be equals", eventList.get(0).getDirectory().getName(), "Esame1");
     }
 
     @Test
     public void getAllByFilter_whenAllParametersFoundTest() {
-        event1.setTitle("Banana");
-        eventRepository.save(event1);
-        List<Event> eventList = eventService.getAllByFilter("Banana", LocalDate.now().toString(), "Severgnini");
+        List<Event> eventList = eventService.getAllByFilter("Prova1", LocalDate.now().toString(), "Severgnini");
         assertTrue(eventList.size() == 1);
-        //assertEquals("Event1 title should be equals", eventList.get(0).getTitle(), "Banana");
+        assertEquals("Event1 title should be equals", eventList.get(0).getTitle(), "Prova1");
 
-        //assertEquals("Directory name should be equals", eventList.get(0).getDirectory().getName(), "Esame1");
+        assertEquals("Directory name should be equals", eventList.get(0).getDirectory().getName(), "Esame2");
     }
 
     private Event createEvent(String title, LocalDate start_date, LocalDate end_date, String place, Users users, Directory directory) {

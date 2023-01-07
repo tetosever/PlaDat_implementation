@@ -1,25 +1,20 @@
 package ToDo.app.service;
 
 import ToDo.app.domain.Directory;
-import ToDo.app.domain.Event;
 import ToDo.app.domain.Priority;
 import ToDo.app.domain.Task;
 import ToDo.app.domain.Users;
 import ToDo.app.exception.ToDoApplicationException;
-import ToDo.app.exception.ToDoApplicationExceptionBadRequest;
 import ToDo.app.repository.TaskRepository;
 import ToDo.app.validation.TaskValidator;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.UUID;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-import org.apache.catalina.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+import java.util.regex.Pattern;
+import org.apache.commons.lang3.EnumUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class TaskService {
@@ -90,27 +85,42 @@ public class TaskService {
         taskRepository.delete(taskExists(uuid));
     }
 
-    public List<Task> getAllByFilter(String title, Priority priority, List<String> users_id) {
-        List<Task> taskList = taskRepository.findAll();
-        
-        //check if users_id is a valid list and every user_id exist in repository.
-        if (checkUsers(usersService.getAll(), users_id) < users_id.size()) {
-            throw new ToDoApplicationException("An user of event does not exist");
-        }
+    public List<Task> getAllByFilter(String title, String priority, String name) {
+        List<Task> taskList = new ArrayList<>();
 
-        //check sui parametri per capire quale ignorare per non distorcere la ricerca
-        if (priority != null) {
-            taskList = taskList.stream().filter(
-                                    task -> task.getPriority().equals(priority))
-                            .collect(Collectors.toList());
-        } else if (title != null && taskList.size() > 0) {
-            taskList = taskList.stream().filter(
-                                    task -> task.getTitle().equals(title)
-                                            || task.getTitle().contains(title))
-                            .collect(Collectors.toList());
-        } else if (users_id != null && !users_id.isEmpty() && taskList.size() > 0) {
-            taskList = taskList.stream().filter(
-                    task -> checkUsers(task.getUsersList(), users_id) > 0).collect(Collectors.toList());
+        if (title != null && !title.isEmpty()) {
+            if (priority != null && EnumUtils.isValidEnum(Priority.class, priority.trim())) {
+                if (name != null && !name.isEmpty()) {
+                    taskList = taskRepository.findByTitleContainsAndPriorityAndNameIsContaining(
+                        title, Priority.valueOf(priority), name);
+                }
+                else {
+                    taskList = taskRepository.findByTitleContainsAndPriority(title, Priority.valueOf(priority));
+                }
+            }
+            else {
+                if (name != null && !name.isEmpty()) {
+                    taskList = taskRepository.findByTitleContainsAndNameIsContaining(title, name);
+                }
+                else {
+                    taskList = taskRepository.findByTitleContains(title);
+                }
+            }
+        }
+        else {
+            if (priority != null && EnumUtils.isValidEnum(Priority.class, priority.trim())) {
+                if (name != null && !name.isEmpty()) {
+                    taskList = taskRepository.findByPriorityAndNameIsContaining(Priority.valueOf(priority), name);
+                }
+                else {
+                    taskList = taskRepository.findByPriority(Priority.valueOf(priority));
+                }
+            }
+            else {
+                if (name != null && !name.isEmpty()) {
+                    taskList = taskRepository.findByNameIsContaining(name);
+                }
+            }
         }
         
         return taskList;
@@ -136,21 +146,5 @@ public class TaskService {
         }
         return UUID.fromString(id);
     }
-
-    //this method check if every user_id exist in repository.
-    private int checkUsers(List<Users> usersList, List<String> users_id) {
-        int count = 0;
-        if (users_id != null && !users_id.isEmpty()) {
-            for (Users user : usersList) {
-                for (String user_id : users_id) {
-                    UUID uuid = toUUID(user_id);
-                    if (uuid.equals(user.getId())) {
-                        count++;
-                        break;
-                    }
-                }
-            }
-        }
-        return count;
-    }
+    
 }

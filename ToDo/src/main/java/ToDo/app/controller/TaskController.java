@@ -1,5 +1,6 @@
 package ToDo.app.controller;
 
+import ToDo.app.domain.Event;
 import ToDo.app.domain.Task;
 import ToDo.app.service.TaskService;
 import java.util.List;
@@ -63,5 +64,14 @@ public class TaskController {
             @RequestParam(value = "directory_id") String directory_id){
         taskService.update(id, description, title, priority, user_id, directory_id);
         return new ModelAndView("redirect:/");
+    }
+
+    @RequestMapping(value = "/events/read/{title}/{start_date}/{user}", method = RequestMethod.GET)
+    public List<Task> getAllByFilter(
+        @PathVariable(value = "title") String title,
+        @PathVariable(value = "priority") String priority,
+        @PathVariable(value = "user") String name)
+    {
+        return taskService.getAllByFilter(title, priority, name);
     }
 }
