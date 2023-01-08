@@ -253,19 +253,31 @@ input:focus {
     flex-direction: column;
 }
 
-.directories-sub > button {
-    margin-top: 30px;
+.directories-sub > a {
+    margin: 30px auto 0;
     display: block;
     background-color: transparent;
     border: 0px;
+    color: white;
 }
 
-.directories-sub > button > svg {
+.directories-sub > a > svg {
     width: 50px;
     color: white;
     height: auto;
+    margin: auto;
 }
-
+.cardDirectory > a
+{
+    display: block;
+    margin-left: auto;
+    color: white;
+}
+.cardDirectory > a > svg
+{
+    width: 20px;
+    height: auto;
+}
 .directories-body > div {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -553,6 +565,10 @@ form {
 @media only screen and (max-width: 1200px) {
     .filter > span {
         display: none;
+    }
+    .filter > svg
+    {
+        margin-right: 0px;
     }
 }
 

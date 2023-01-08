@@ -2,12 +2,6 @@ let whoo="", tId="", tTile="", tPriority="", tName="", eId="", eTitle="", eDate=
 let directories, users;
 $(document).ready(
     () => {
-        $.get( "stakeholders/read", function( data ) {
-            alert(data);
-        });
-        $.get( "directories/read", function( data ) {
-            alert(data);
-        });
         $(".new-filter").hide();
         $(".filter").click((e) =>
         {
