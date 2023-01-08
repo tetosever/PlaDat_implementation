@@ -1,10 +1,14 @@
 package ToDo.app.controller;
 
 import ToDo.app.domain.Directory;
+import ToDo.app.domain.GenericToDo;
 import ToDo.app.service.DirectoryService;
+import ToDo.app.service.GenericToDoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,22 +21,42 @@ public class DirectoryController {
 
     @Autowired
     private DirectoryService directoryService;
+    
+    @Autowired
+    private GenericToDoService genericToDoService; 
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView getAllDirectoriesWithView(){
         ModelAndView view = new ModelAndView("directories.html");
-        view.addObject("directories", directoryService.getAll());
+        //inserisco nella variabile direcotories le direcotory padre.
+        view.addObject("directories", directoryService.getAllParents());
+        view.addObject("genericToDo", genericToDoService.getAllByDirectory(null));
         return view;
     }
 
     @RequestMapping(value = "/read", method = RequestMethod.GET)
     public List<Directory> getAllDirectories(){
-        return directoryService.getAll();
+        return directoryService.getAllParents();
+    }
+
+    @RequestMapping(value = "/read/forUpdate/{id}", method = RequestMethod.GET)
+    public ModelAndView getAllDirectoriesForUpdate(ModelAndView view, @PathVariable(value = "id") String id) {
+        view.addObject("directoryListForUpdate", directoryService.getAllForUpdate(id));
+        return view;
     }
 
     @RequestMapping(value = "/read/{id}", method = RequestMethod.GET)
-    public Directory getDirectoryById(@RequestParam(value = "id") String id){
-        return directoryService.getById(id);
+    public ModelAndView getDirectoryById(ModelAndView view, @PathVariable(value = "id") String id){
+        //viene passato l'id della directory padre, quella a cui sto cercando di accedere per vedere il contenuto
+        //inserisco nella variabile presente lato front-end daughter_directory tutte le directory che hanno come padre
+        //la directory specificata
+        view.addObject("daughter_directory", directoryService.getAllDaughter(id));
+        //inserisco nella variabile presente lato front-end genericToDo tutti i genericToDo che hanno come riferimento
+        //la directory specificata
+        view.addObject("daughter_genericToDo", genericToDoService.getAllByDirectory(id));
+        //per recuperare l'elemento specifico, chiameró successivamente il getById che ritornerá task o event
+        
+        return view;
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)

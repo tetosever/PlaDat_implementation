@@ -69,12 +69,13 @@ public class EventController {
     }
 
     @RequestMapping(value = "/events/read/{title}/{start_date}/{user}", method = RequestMethod.GET)
-    public List<Event> getAllByFilter(
+    public ModelAndView getAllByFilter(
+            ModelAndView view,
             @PathVariable(value = "title") String title,
             @PathVariable(value = "start_date") String start_date,
             @PathVariable(value = "user") String name)
     {
-        //return eventService.getAllByFilter(title, start_date, users_id);
-        return eventService.getAllByFilter(title, start_date, name);
+        view.addObject("filterEvent", eventService.getAllByFilter(title, start_date, name));
+        return view;
     }
 }

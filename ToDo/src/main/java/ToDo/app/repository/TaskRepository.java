@@ -1,15 +1,12 @@
 package ToDo.app.repository;
 
-import ToDo.app.domain.Event;
 import ToDo.app.domain.Priority;
 import ToDo.app.domain.Task;
-import ToDo.app.domain.Users;
 import java.util.List;
+import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
-import java.util.UUID;
 
 @Repository
 public interface TaskRepository extends JpaRepository<Task, UUID> {

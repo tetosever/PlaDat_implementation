@@ -67,11 +67,13 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/events/read/{title}/{start_date}/{user}", method = RequestMethod.GET)
-    public List<Task> getAllByFilter(
+    public ModelAndView getAllByFilter(
+        ModelAndView view,
         @PathVariable(value = "title") String title,
         @PathVariable(value = "priority") String priority,
         @PathVariable(value = "user") String name)
     {
-        return taskService.getAllByFilter(title, priority, name);
+        view.addObject("filterTask", taskService.getAllByFilter(title, priority, name));
+        return view;
     }
 }
