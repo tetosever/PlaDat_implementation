@@ -1,4 +1,4 @@
-<div th:fragment="modalTask" class="modal fade" id="modalTask" tabindex="-1" aria-hidden="true">
+<div th:fragment="modalDirectory" class="modal fade" id="modalDirectory" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <form>
             <div class="modal-content">
@@ -54,22 +54,13 @@
                 <div class="modal-subtitles"><p>Creating a directory...</p></div>
                 <div class="modal-body">
                     <div class="form-block">
-                        <input class="input-form" type="text" placeholder="" name="name" required>
-                        <label>First Name</label>
-                    </div>
-                    <div class="form-block">
-                        <input class="input-form" type="text" placeholder="" name="surname" required>
-                        <label>Surname</label>
-                    </div>
-                    <div class="form-block">
-                        <select class="input-form" type="text" placeholder="" name="role">
-                            <option value="FrontEndDeveloper">Front End Developer</option>
-                            <option value="BackEndDeveloper">Back End Developer</option>
-                            <option value="FullStackDeveloper">Full Stack Developer</option>
-                            <option value="BusinessManager">Business Manager</option>
-                            <option value="Projectmanager">Project manager</option>
+                        <select class="input-form" type="text" placeholder="" name="directory_id">
                         </select>
-                        <label>Role</label>
+                        <label>Parent</label>
+                    </div>
+                    <div class="form-block">
+                        <input class="input-form" type="text" placeholder="" name="name" required>
+                        <label>Name</label>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -93,97 +84,3 @@
         </form>
     </div>
 </div>
-<!--
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                    PlaDat Magic Assistant
-                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                         style="margin: auto; background: none; display: block; shape-rendering: auto;" width="100%"
-                         height="100%" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
-                        <circle cx="84" cy="50" r="10" fill="#246ffa">
-                            <animate attributeName="r" repeatCount="indefinite" dur="0.625s" calcMode="spline"
-                                     keyTimes="0;1" values="12;0" keySplines="0 0.5 0.5 1" begin="0s"/>
-                            <animate attributeName="fill" repeatCount="indefinite" dur="2.5s" calcMode="discrete"
-                                     keyTimes="0;0.25;0.5;0.75;1" values="#246ffa;#246ffa;#246ffa;#246ffa;#246ffa"
-                                     begin="0s"/>
-                        </circle>
-                        <circle cx="16" cy="50" r="10" fill="#246ffa">
-                            <animate attributeName="r" repeatCount="indefinite" dur="2.5s" calcMode="spline"
-                                     keyTimes="0;0.25;0.5;0.75;1" values="0;0;12;12;12"
-                                     keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="0s"/>
-                            <animate attributeName="cx" repeatCount="indefinite" dur="2.5s" calcMode="spline"
-                                     keyTimes="0;0.25;0.5;0.75;1" values="16;16;16;50;84"
-                                     keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="0s"/>
-                        </circle>
-                        <circle cx="50" cy="50" r="10" fill="#246ffa">
-                            <animate attributeName="r" repeatCount="indefinite" dur="2.5s" calcMode="spline"
-                                     keyTimes="0;0.25;0.5;0.75;1" values="0;0;12;12;12"
-                                     keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="-0.625s"/>
-                            <animate attributeName="cx" repeatCount="indefinite" dur="2.5s" calcMode="spline"
-                                     keyTimes="0;0.25;0.5;0.75;1" values="16;16;16;50;84"
-                                     keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="-0.625s"/>
-                        </circle>
-                        <circle cx="84" cy="50" r="10" fill="#246ffa">
-                            <animate attributeName="r" repeatCount="indefinite" dur="2.5s" calcMode="spline"
-                                     keyTimes="0;0.25;0.5;0.75;1" values="0;0;12;12;12"
-                                     keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="-1.25s"/>
-                            <animate attributeName="cx" repeatCount="indefinite" dur="2.5s" calcMode="spline"
-                                     keyTimes="0;0.25;0.5;0.75;1" values="16;16;16;50;84"
-                                     keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="-1.25s"/>
-                        </circle>
-                        <circle cx="16" cy="50" r="10" fill="#246ffa">
-                            <animate attributeName="r" repeatCount="indefinite" dur="2.5s" calcMode="spline"
-                                     keyTimes="0;0.25;0.5;0.75;1" values="0;0;12;12;12"
-                                     keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="-1.875s"/>
-                            <animate attributeName="cx" repeatCount="indefinite" dur="2.5s" calcMode="spline"
-                                     keyTimes="0;0.25;0.5;0.75;1" values="16;16;16;50;84"
-                                     keySplines="0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1;0 0.5 0.5 1" begin="-1.875s"/>
-                        </circle>
-                    </svg>
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-subtitles"><p>Creating a directory...</p></div>
-            <div class="modal-body">
-
-                <form>
-                    <div class="form-block">
-                        <select class="input-form input-form-dir" type="text" placeholder="">
-                            <option>Prima</option>
-                            <option>Prima</option>
-                            <option>Prima</option>
-                        </select>
-                    </div>
-                    <div class="form-block">
-                        <input class="input-form" type="text" placeholder="">
-                        <label>First Name</label>
-                    </div>
-                    <div class="form-block">
-                        <input class="input-form" type="text" placeholder="">
-                        <label>First Name</label>
-                    </div>
-                    <div class="form-block">
-                        <input class="input-form" type="date" placeholder="">
-                        <label>First Name</label>
-                    </div>
-                    <div class="form-block">
-                        <input class="input-form" type="date" placeholder="">
-                        <label>First Name</label>
-                    </div>
-                    <div class="form-block" id="searchBoxContainer">
-                        <input id="searchBox" class="input-form" type="text" placeholder="">
-                        <label>First Name</label>
-                    </div>
-                    >
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Create</button>
-            </div>
-        </div>
-    </div>
-</div>
--->

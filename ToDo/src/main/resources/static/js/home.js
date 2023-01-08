@@ -1,6 +1,13 @@
 let whoo="", tId="", tTile="", tPriority="", tName="", eId="", eTitle="", eDate="", eName="";
+let directories, users;
 $(document).ready(
     () => {
+        $.get( "stakeholders/read", function( data ) {
+            alert(data);
+        });
+        $.get( "directories/read", function( data ) {
+            alert(data);
+        });
         $(".new-filter").hide();
         $(".filter").click((e) =>
         {
@@ -36,44 +43,91 @@ $(document).ready(
                     case "f-t-id": {
                         break;
                     }
-                }
-                ;
+                };
                 $("#" + whoo).addClass("filter-active");
+            }
+            else
+            {
+                $("#" + whoo).removeClass("filter-active");
             }
             $("#" + whoo + " >form").hide();
             $("#" + whoo + " >form").find("input").val("");
         });
-        $(".cardStakeholder").click((e) => {
+        $(".card-event").click((e) => {
+            let id = e.target.id;
+            let element = events.find(ele => ele.id == id);
+            id=id.toString().replaceAll('-','');
+            if (element != null) {
+                $('#modalEvent form').attr("method", "post");
+                $('#modalEvent form').attr("action", "/events/update/" + id);
+                $('#modalEvent input[name^="title"]').val(element.title);
+                $('#modalEvent input[name^="title"]').addClass("input-form-focus");
+                $('#modalEvent input[name^="description"]').val(element.description);
+                $('#modalEvent input[name^="description"]').addClass("input-form-focus");
+                $('#modalEvent select:nth-child(3)').val(element.priority);
+                if (element.priority != null && element.priority != "") {
+                    $('#modalEvent select:nth-child(3)').addClass("input-form-focus");
+                }
+                $('#modalEvent select:nth-child(3)').val(element.priority);
+                if (element.priority != null && element.priority != "") {
+                    $('#modalEvent select:nth-child(3)').addClass("input-form-focus");
+                }$('#modalEvent select:nth-child(3)').val(element.usersList);
+                if (element.usersList != null && element.usersList != "") {
+                    $('#modalEvent select:nth-child(3)').addClass("input-form-focus");
+                }
+                $('#modalEvent select:nth-child(3)').val(element.directory.id);
+                if (element.priority != null && element.priority != "") {
+                    $('#modalEvent select:nth-child(3)').addClass("input-form-focus");
+                }
+                $('#modalEvent .modal-footer > a').show();
+                $('#modalEvent .modal-footer > a').attr("href", "/events/delete/" + id);
+                $('#modalEvent .modal-subtitles > p').text("Working with the event...")
+                $('#modalEvent').modal('show');
+            }
+        });
+
+        $(".createEvent").click(() => {
+            $('#modalEvent .modal-subtitles > p').text("Working with the event...")
+            $('#modalEvent form').attr("method", "post");
+            $('#modalEvent form').attr("action", "/events/create");
+            $('#modalEvent .modal-footer > a').hide();
+            $('#modalEvent').modal('show');
+        })
+
+        $('#modalEvent').on('hidden.bs.modal', () => {
+            $(".input-form").val("");
+        })
+        $(".card-task").click((e) => {
             let id = e.target.id;
             let element = users.find(ele => ele.id == id);
             id=id.toString().replaceAll('-','');
             if (element != null) {
-                $('#modalStakeholder form').attr("method", "post");
-                $('#modalStakeholder form').attr("action", "/stakeholders/update/" + id);
-                $('#modalStakeholder input[name^="name"]').val(element.name);
-                $('#modalStakeholder input[name^="name"]').addClass("input-form-focus");
-                $('#modalStakeholder input[name^="surname"]').val(element.surname);
-                $('#modalStakeholder input[name^="surname"]').addClass("input-form-focus");
-                $('#modalStakeholder select').val(element.role);
+                $('#modalTask form').attr("method", "post");
+                $('#modalTask form').attr("action", "/tasks/update/" + id);
+                $('#modalTask input[name^="name"]').val(element.name);
+                $('#modalTask input[name^="name"]').addClass("input-form-focus");
+                $('#modalTask input[name^="surname"]').val(element.surname);
+                $('#modalTask input[name^="surname"]').addClass("input-form-focus");
+                $('#modalTask select').val(element.role);
                 if (element.role != null && element.role != "") {
-                    $('#modalStakeholder select').addClass("input-form-focus");
+                    $('#modalTask select').addClass("input-form-focus");
                 }
-                $('#modalStakeholder .modal-footer > a').show();
-                $('#modalStakeholder .modal-footer > a').attr("href", "/stakeholders/delete/" + id);
-                $('#modalStakeholder .modal-subtitles > p').text("Working with the stakeholder...")
-                $('#modalStakeholder').modal('show');
+                $('#modalTask .modal-footer > a').show();
+                $('#modalTask .modal-footer > a').attr("href", "/tasks/delete/" + id);
+                $('#modalTask .modal-subtitles > p').text("Working with the task...")
+                $('#modalTask').modal('show');
             }
         });
 
-        $(".createStakeholder").click(() => {
-            $('#modalStakeholder .modal-subtitles > p').text("Working with the stakeholder...")
-            $('#modalStakeholder form').attr("method", "post");
-            $('#modalStakeholder form').attr("action", "/stakeholders/create");
-            $('#modalStakeholder .modal-footer > a').hide();
-            $('#modalStakeholder').modal('show');
+        $(".createTask").click(() => {
+            $('#modalTask .modal-subtitles > p').text("Creating the task...")
+            $('#modalTask form').attr("method", "post");
+            $('#modalTask form').attr("action", "/tasks/create");
+            $('#modalTask .modal-footer > a').hide();
+            $('#modalTask').modal('show');
         })
 
-        $('#modalStakeholder').on('hidden.bs.modal', () => {
+        $('#modalTask').on('hidden.bs.modal', () => {
             $(".input-form").val("");
         })
     }
@@ -88,7 +142,3 @@ $(document).mouseup((e) =>
         element.find("input").val("");
     }
 });
-
-function modalCreateStakeholder() {
-    $('#modalStakeholder').modal('show');
-};

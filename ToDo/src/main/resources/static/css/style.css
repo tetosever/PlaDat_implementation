@@ -88,7 +88,6 @@ h1, h2, h3, h4, h5, h6, h7 {
 .task, .events {
     padding: 20px;
     border-radius: 20px;
-    margin: 10px;
     background-color: rgba(0, 0, 0, .4);
 }
 
@@ -272,8 +271,9 @@ input:focus {
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     padding: 10px;
     border-radius: 20px;
-    margin: 30px 10px 10px;
+    margin-top:20px;
     background-color: rgba(0, 0, 0, .4);
+    height: calc(100vh - 205px);
 }
 
 .stakeholder-body > div {
@@ -287,16 +287,6 @@ input:focus {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
 }
-
-.dictories-body > div {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    padding: 10px;
-    border-radius: 20px;
-    margin: 30px 10px 10px;
-    background-color: rgba(0, 0, 0, .4);
-}
-
 .cardDirectory, .cardStakeholder {
     background-color: rgba(0, 0, 0, 0.35);
     border-radius: 10px;
@@ -307,6 +297,7 @@ input:focus {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    height: fit-content;
 }
 
 .cardDirectory > svg, .cardStakeholder > svg {
@@ -520,7 +511,7 @@ form {
 }
 .filter-active
 {
-    border-color: #7a1cc7 !important;
+    border: 2px solid #7a1cc7 !important;
 }
 .filter:hover
 {
@@ -530,6 +521,17 @@ form {
 .filter:focus-within
 {
     color:#7a1cc7 !important;
+}
+.multiple
+{
+    height: 99px !important;
+}
+.alwaysActive
+{
+    top: -7px !important;
+    font-size: 10px !important;
+    background-color: white !important;
+    z-index: 0 !important;
 }
 @keyframes typing {
     from {
@@ -548,3 +550,9 @@ form {
         border-color: #7e7e7e;
     }
 }
+@media only screen and (max-width: 1200px) {
+    .filter > span {
+        display: none;
+    }
+}
+

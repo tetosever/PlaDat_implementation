@@ -11,7 +11,7 @@
                 <div class="task-header">
                     <div>
                         <h3>Tasks</h3>
-                        <button>
+                        <button class="createTask">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-plus-lg" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
@@ -26,7 +26,7 @@
                                 <path d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8zm4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5z"/>
                                 <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
                             </svg>
-                            Id
+                            <span>Id</span>
                             <div th:replace="fragments/filter :: filter"></div>
                         </button>
                         <button class="rounded-5 filter" id="f-t-title">
@@ -36,7 +36,7 @@
                                 <path fill-rule="evenodd"
                                       d="M8 1a.5.5 0 0 1 .5.5v13a.5.5 0 0 1-1 0v-13A.5.5 0 0 1 8 1z"/>
                             </svg>
-                            Title
+                            <span>Title</span>
                             <div th:replace="fragments/filter :: filter"></div>
                         </button>
                         <button class="rounded-5 filter" id="f-t-priority">
@@ -44,7 +44,7 @@
                                  class="bi bi-bar-chart-fill" viewBox="0 0 16 16">
                                 <path d="M1 11a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3zm5-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V2z"/>
                             </svg>
-                            Prioriry
+                            <span>Priority</span>
                             <div th:replace="fragments/filter :: filter"></div>
                         </button>
                         <button class="rounded-5 filter" id="f-t-name">
@@ -52,14 +52,14 @@
                                  class="bi bi-person-fill" viewBox="0 0 16 16">
                                 <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
                             </svg>
-                            Name
+                            <span>Name</span>
                             <div th:replace="fragments/filter :: filter"></div>
                         </button>
                     </div>
                 </div>
                 <div class="task-body">
-                    <th:block th:each="user : ${users}"
-                              th:insert="fragments/cardStakeholder :: cardStakeholder(${user})" th:remove="tag">
+                    <th:block th:each="task : ${tasks}"
+                              th:insert="fragments/cardTask :: cardTask(${task})" th:remove="tag">
                     </th:block>
                 </div>
             </div>
@@ -69,7 +69,7 @@
                 <div class="events-header">
                     <div>
                         <h3>Events</h3>
-                        <button>
+                        <button class="createEvent">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-plus-lg" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
@@ -84,7 +84,7 @@
                                 <path d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8zm4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5z"/>
                                 <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
                             </svg>
-                            Id
+                            <span>Id</span>
                             <div th:replace="fragments/filter :: filter"></div>
                         </button>
                         <button class="rounded-5 filter" id="f-e-title">
@@ -94,7 +94,7 @@
                                 <path fill-rule="evenodd"
                                       d="M8 1a.5.5 0 0 1 .5.5v13a.5.5 0 0 1-1 0v-13A.5.5 0 0 1 8 1z"/>
                             </svg>
-                            Title
+                            <span>Title</span>
                             <div th:replace="fragments/filter :: filter"></div>
                         </button>
                         <button class="rounded-5 filter" id="f-e-date">
@@ -102,7 +102,7 @@
                                  class="bi bi-calendar" viewBox="0 0 16 16">
                                 <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
                             </svg>
-                            Date
+                            <span>Date</span>
                             <div th:replace="fragments/filter :: filter"></div>
                         </button>
                         <button class="rounded-5 filter" id="f-e-user">
@@ -110,14 +110,14 @@
                                  class="bi bi-person-fill" viewBox="0 0 16 16">
                                 <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
                             </svg>
-                            Name
+                            <span>Name</span>
                             <div th:replace="fragments/filter :: filter"></div>
                         </button>
                     </div>
                 </div>
                 <div class="events-body">
-                    <th:block th:each="user : ${users}"
-                              th:insert="fragments/cardStakeholder :: cardStakeholder(${user})" th:remove="tag">
+                    <th:block th:each="event : ${events}"
+                              th:insert="fragments/cardEvent :: cardEvent(${event})" th:remove="tag">
                     </th:block>
                 </div>
             </div>
@@ -138,7 +138,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script><script src='https://www.bing.com/api/maps/mapcontrol?key=AoT-Xgbyi-r8h5HmJWJZhXdEkbL2UYOluU7LDUsdwu8zKUyj51W7oO4p5hJxqWuG&callback=loadMapScenario' async defer></script>
 
 <script th:inline="javascript">
-    let users = [[${users}]];
+    let events = [[${events}]];
+    let tasks = [[${tasks}]];
 </script>
 <script type="text/javascript" th:src="@{/js/general.js}"></script>
 <script type="text/javascript" th:src="@{/js/home.js}"></script>

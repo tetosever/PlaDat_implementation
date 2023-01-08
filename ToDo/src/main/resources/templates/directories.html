@@ -12,7 +12,7 @@
     </div>
     <div class="row">
         <div class="col-1 directories-action">
-            <button data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button class="createDirectory">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"></path>
                 </svg>
@@ -30,10 +30,10 @@
                 </svg>
             </button>
         </div>
-        <div class="col-11 dictories-body">
+        <div class="col-11 directories-body">
             <div>
-                <th:block th:each="user : ${users}"
-                          th:insert="fragments/cardDirectory :: cardDirectory(${user})" th:remove="tag">
+                <th:block th:each="directory : ${directories}"
+                          th:insert="fragments/cardDirectory :: cardDirectory(${directory})" th:remove="tag">
                 </th:block>
             </div>
         </div>
@@ -46,7 +46,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script th:inline="javascript">
-    let users = [[${users}]];
+    let directories = [[${directories}]];
 </script>
 <script type="text/javascript" th:src="@{/js/general.js}"></script>
-<script type="text/javascript" th:src="@{/js/directories.js}"></script>
+<script type="text/javascript" th:src="@{/js/directory.js}"></script>

@@ -24,7 +24,7 @@ $(document).ready(
         });
 
         $(".createStakeholder").click(() => {
-            $('#modalStakeholder .modal-subtitles > p').text("Working with the stakeholder...")
+            $('#modalStakeholder .modal-subtitles > p').text("Creating the stakeholder...")
             $('#modalStakeholder form').attr("method", "post");
             $('#modalStakeholder form').attr("action", "/stakeholders/create");
             $('#modalStakeholder .modal-footer > a').hide();
@@ -36,8 +36,3 @@ $(document).ready(
         })
     }
 )
-
-
-function modalCreateStakeholder() {
-    $('#modalStakeholder').modal('show');
-};
