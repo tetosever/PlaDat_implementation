@@ -85,13 +85,13 @@ public class DirectoryControllerIntegrationTest {
 
         assertTrue(directoryRepository.findAll().size() == 2);
 
+        //update directory named "Universitá" to "Esame2" and changed parent directory to null
         mockMvc.perform(post("/directories/update/" + directory.getId().toString())
                 .param("name", "Esame2"))
             .andExpect(redirectedUrl("/directories/"));
 
         assertTrue(directoryRepository.findAll().size() == 2);
         assertEquals("Directory name should be equals", directoryRepository.findAll().get(1).getName(), "Esame2");
-
     }
 
     private Directory createDirectory(String name, Directory directory) {Directory directory_tmp = new Directory();

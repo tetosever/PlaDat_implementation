@@ -33,7 +33,7 @@ public class GenericToDoController {
     }
 
     //this method insert in variable specific_genericToDo the object Task or Event in base of id value
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public ModelAndView getSpecificGenericToDo(ModelAndView view, @PathVariable("id") String id){
         view.addObject("specific_genericToDo", genericToDoService.getGenericToDoById(id));
         // TODO: 08/01/23 bisogna capire come effettuare la visualizzazione 

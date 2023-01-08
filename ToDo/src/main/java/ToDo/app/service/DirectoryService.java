@@ -2,6 +2,7 @@ package ToDo.app.service;
 
 import ToDo.app.domain.Directory;
 import ToDo.app.exception.ToDoApplicationException;
+import ToDo.app.exception.ToDoApplicationExceptionBadRequest;
 import ToDo.app.repository.DirectoryRepository;
 import ToDo.app.validation.DirectoryValidator;
 import java.util.List;
@@ -67,14 +68,19 @@ public class DirectoryService {
         directoryValidator.validateName(name);
 
         Directory savedDirectory = directoryExists(uuid);
-        Directory parentDirectory = directoryExists(toUUID(directory_id));
         
-        if (checkParentDirectory(savedDirectory.getId(), parentDirectory)) {
+        if (directory_id == null || directory_id.isEmpty()) {
             savedDirectory.setName(name);
-            if (parentDirectory == null) {
-                savedDirectory.setDirectory(null);
+            savedDirectory.setDirectory(null);
+        }
+        else {
+            Directory parentDirectory = directoryExists(toUUID(directory_id));
+            if (checkParentDirectory(savedDirectory.getId(), parentDirectory)) {
+                throw new ToDoApplicationExceptionBadRequest("New directory should create a loop association!!");
             }
-            else {
+            else
+            {
+                savedDirectory.setName(name);
                 savedDirectory.setDirectory(parentDirectory);
             }
         }
