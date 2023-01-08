@@ -167,7 +167,7 @@ button:focus, .btn-close:focus {
 }
 
 .new-filter {
-    background-color: #281353;
+    background-color: rgba(0, 0, 0, .35);;
     padding: 6px;
     display: inline-block;
     border-radius: 6px;
@@ -520,7 +520,7 @@ form {
 }
 .filter-active
 {
-    background-color: #7a1cc7;
+    border-color: #7a1cc7 !important;
 }
 .filter:hover
 {

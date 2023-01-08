@@ -1,21 +1,20 @@
-let who, tId="", tTile="", tPriority="", tName="", eId="", eTitle="", eDate="", eName="";
+let whoo="", tId="", tTile="", tPriority="", tName="", eId="", eTitle="", eDate="", eName="";
 $(document).ready(
     () => {
         $(".new-filter").hide();
-        //Here you can use users from Thymeleaf
         $(".filter").click((e) =>
         {
             let id = e.target.id;
-            who=id;
-            $("#"+who+" > .new-filter").show();
-            $("#"+who).addClass("filter-active");
-        })
-        $(".new-filter > span").click(() =>{
-            let text=$("#"+who+">form>input").val().trim();
-            if(text=="")
+            if(id!=null && id!="")
             {
-                alert("");
-                switch (id) {
+                whoo=id;
+                $("#"+whoo+" > .new-filter").show();
+            }
+        });
+        $(".new-filter > span").click((e) => {
+            let text = $("#" + whoo + ">form>input").val().trim();
+            if (text != "") {
+                switch (whoo) {
                     case "f-t-id": {
                         break;
                     }
@@ -37,10 +36,12 @@ $(document).ready(
                     case "f-t-id": {
                         break;
                     }
-                };
-                $("#"+who).addClass("filter-active");
+                }
+                ;
+                $("#" + whoo).addClass("filter-active");
             }
-            $("#"+who+" >form").hide();
+            $("#" + whoo + " >form").hide();
+            $("#" + whoo + " >form").find("input").val("");
         });
         $(".cardStakeholder").click((e) => {
             let id = e.target.id;
@@ -78,7 +79,7 @@ $(document).ready(
     }
 )
 
-$(document).mouseup(function(e)
+$(document).mouseup((e) =>
 {
     let element = $(".new-filter");
     if (!element.is(e.target) && element.has(e.target).length === 0)
