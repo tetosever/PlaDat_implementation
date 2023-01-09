@@ -85,15 +85,20 @@ public class UsersService {
     }
 
     private static UUID toUUID(String id) {
+        UUID uuid = null;
         if (id!=null && id.length()==32)
         {
             id = id.substring(0,8) + "-" + id.substring(8,12) + "-"
-                    + id.substring(12,16) + "-" + id.substring(16,20) + "-" + id.substring(20);
+                + id.substring(12,16) + "-" + id.substring(16,20) + "-" + id.substring(20);
             if (!UUID_REGEX_PATTERN.matcher(id).matches())
             {
-                // TODO: 02/01/23 fare eccezione personalizzata
+                throw new ToDoApplicationException("UUID error");
             }
+            uuid = UUID.fromString(id);
         }
-        return UUID.fromString(id);
+        else if (id.contains("-") && id.length() == 36) {
+            uuid = UUID.fromString(id);
+        }
+        return uuid;
     }
 }

@@ -49,7 +49,7 @@ public class TaskController {
             @RequestParam(value = "title") String title,
             @RequestParam(value = "priority") String priority,
             @RequestParam(value = "user_id", required = false) String user_id,
-            @RequestParam(value = "directory_id", required = false) String directory_id){
+            @RequestParam(value = "directory_id") String directory_id){
         taskService.create(description, title, priority, user_id, directory_id);
         return new ModelAndView("redirect:/");
     }

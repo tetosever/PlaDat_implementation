@@ -43,8 +43,6 @@ public class TaskService {
     }
 
     public Task create(String description, String title, String priority, String user_id, String directory_id){
-        taskValidator.validateId(toUUID(user_id));
-        taskValidator.validateId(toUUID(directory_id));
         taskValidator.validateTask(title, priority, user_id, directory_id);
         
         Task task = new Task();
@@ -52,8 +50,12 @@ public class TaskService {
         task.setPriority(Priority.valueOf(priority));
         task.setDescription(description);
         task.setUsersList(new ArrayList<>());
-        task.getUsersList().add(usersService.getById(user_id));
-        task.setDirectory(directoryService.getById(directory_id));
+        if (user_id != null) {
+            task.getUsersList().add(usersService.getById(user_id));
+        }
+        if (directory_id != null) {
+            task.setDirectory(directoryService.getById(directory_id));
+        }
         return taskRepository.save(task);
     }
 
@@ -138,16 +140,21 @@ public class TaskService {
     }
 
     private static UUID toUUID(String id) {
+        UUID uuid = null;
         if (id!=null && id.length()==32)
         {
             id = id.substring(0,8) + "-" + id.substring(8,12) + "-"
-                    + id.substring(12,16) + "-" + id.substring(16,20) + "-" + id.substring(20);
+                + id.substring(12,16) + "-" + id.substring(16,20) + "-" + id.substring(20);
             if (!UUID_REGEX_PATTERN.matcher(id).matches())
             {
                 throw new ToDoApplicationException("UUID error");
             }
+            uuid = UUID.fromString(id);
         }
-        return UUID.fromString(id);
+        else if (id.contains("-") && id.length() == 36) {
+            uuid = UUID.fromString(id);
+        }
+        return uuid;
     }
     
 }

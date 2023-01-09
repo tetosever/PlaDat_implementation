@@ -15,10 +15,10 @@ public class UserValidator extends Validator{
     }
 
     private void validateName(String name, String surname){
-        if (name.trim() == null || name.trim().isEmpty()) {
+        if (name == null || name.trim().isEmpty()) {
             throw new ToDoApplicationExceptionBadRequest("Name is null or empty");
         }
-        else if (surname.trim() == null || surname.trim().isEmpty()) {
+        else if (surname == null || surname.trim().isEmpty()) {
             throw new ToDoApplicationExceptionBadRequest("Surname is null or empty");
         }
     }

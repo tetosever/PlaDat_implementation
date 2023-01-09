@@ -16,7 +16,7 @@ public class EventValidator extends Validator {
     }
 
     private void validateTitleAndPlace(String title){
-        if (title.trim() == null || title.trim().isEmpty()) {
+        if (title == null || title.trim().isEmpty()) {
             throw new ToDoApplicationExceptionBadRequest("Title is null or empty");
         }
     }
@@ -31,13 +31,13 @@ public class EventValidator extends Validator {
     }
 
     private void validateUsersId(String user_id){
-        if (user_id.trim() == null || user_id.trim().isEmpty()) {
+        if (user_id == null || user_id.trim().isEmpty()) {
             throw new ToDoApplicationExceptionBadRequest("User id is null or empty");
         }
     }
 
     private void validateDirectoryId(String directory_id){
-        if (directory_id.trim() == null || directory_id.trim().isEmpty()) {
+        if (directory_id == null || directory_id.trim().isEmpty()) {
             throw new ToDoApplicationExceptionBadRequest("Directory id is null or empty");
         }
     }
