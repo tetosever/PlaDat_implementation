@@ -26,11 +26,18 @@ public class DirectoryController {
     private GenericToDoService genericToDoService; 
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView getAllDirectoriesWithView(){
+    public ModelAndView getAllDirectoriesWithView() {
+        ModelAndView view = new ModelAndView("directories.html");
+        view.addObject("directories", directoryService.getAll());
+        return view;
+    }
+    
+    @RequestMapping(value = "/parent", method = RequestMethod.GET)
+    public ModelAndView getParentsDirectoriesWithView(){
         ModelAndView view = new ModelAndView("directories.html");
         //inserisco nella variabile direcotories le direcotory padre.
-        view.addObject("directories", directoryService.getAllParents());
-        view.addObject("genericToDo", genericToDoService.getAllByDirectory(null));
+        view.addObject("parentDirectories", directoryService.getAllParents());
+        view.addObject("parentGenericToDo", genericToDoService.getAllByDirectory(null));
         return view;
     }
 

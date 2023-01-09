@@ -31,6 +31,10 @@ public class DirectoryService {
         return directoryList;
     }
     
+    public List<Directory> getAll() {
+        return directoryRepository.findAll();
+    }
+    
     public List<Directory> getAllParents(){
         //if directory attribute is null, the specific directory has not a parent. 
         return directoryRepository.findByDirectory(null);

@@ -50,7 +50,9 @@ public class EventService {
             String place, 
             String user_id, 
             String directory_id) {
-        
+
+        eventValidator.validateId(toUUID(user_id));
+        eventValidator.validateId(toUUID(directory_id));
         eventValidator.validateEvent(title, 
                 formatterStringToDateTime(start_date), 
                 formatterStringToDateTime(end_date), 
@@ -79,6 +81,8 @@ public class EventService {
         
         UUID uuid = toUUID(id);
         eventValidator.validateId(uuid);
+        eventValidator.validateId(toUUID(user_id));
+        eventValidator.validateId(toUUID(directory_id));
         eventValidator.validateEvent(title, 
                 formatterStringToDateTime(start_date), 
                 formatterStringToDateTime(end_date), 

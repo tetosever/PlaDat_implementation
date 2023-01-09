@@ -1,10 +1,7 @@
 package ToDo.app.controller;
 
 import ToDo.app.domain.Directory;
-import ToDo.app.domain.Event;
-import ToDo.app.domain.Role;
 import ToDo.app.repository.DirectoryRepository;
-import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

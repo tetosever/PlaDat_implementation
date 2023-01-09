@@ -43,8 +43,9 @@ public class TaskService {
     }
 
     public Task create(String description, String title, String priority, String user_id, String directory_id){
+        taskValidator.validateId(toUUID(user_id));
+        taskValidator.validateId(toUUID(directory_id));
         taskValidator.validateTask(title, priority, user_id, directory_id);
-        Users u = usersService.getById(user_id);
         
         Task task = new Task();
         task.setTitle(title);
@@ -60,6 +61,8 @@ public class TaskService {
             String id, String description, String title, String priority, String user_id, String directory_id){
         UUID uuid = toUUID(id);
         taskValidator.validateId(uuid);
+        taskValidator.validateId(toUUID(user_id));
+        taskValidator.validateId(toUUID(directory_id));
         taskValidator.validateTask(title, priority, user_id, directory_id);
 
         Directory newDirectory = directoryService.getById(directory_id);
