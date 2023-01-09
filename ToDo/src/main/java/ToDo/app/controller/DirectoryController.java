@@ -23,21 +23,16 @@ public class DirectoryController {
     private DirectoryService directoryService;
     
     @Autowired
-    private GenericToDoService genericToDoService; 
-
-    @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView getAllDirectoriesWithView() {
-        ModelAndView view = new ModelAndView("directories.html");
-        view.addObject("directories", directoryService.getAll());
-        return view;
-    }
+    private GenericToDoService genericToDoService;
     
-    @RequestMapping(value = "/parent", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView getParentsDirectoriesWithView(){
         ModelAndView view = new ModelAndView("directories.html");
         //inserisco nella variabile direcotories le direcotory padre.
-        view.addObject("parentDirectories", directoryService.getAllParents());
-        view.addObject("parentGenericToDo", genericToDoService.getAllByDirectory(null));
+        view.addObject("directories", directoryService.getAllParents());
+        view.addObject("todos", genericToDoService.getAllByDirectory(null));
+        view.addObject("allDirectories", directoryService.getAll());
+        view.addObject("directoryListForUpdate", directoryService.getAllForUpdate(null));
         return view;
     }
 
@@ -46,23 +41,12 @@ public class DirectoryController {
         return directoryService.getAllParents();
     }
 
-    @RequestMapping(value = "/read/forUpdate/{id}", method = RequestMethod.GET)
-    public ModelAndView getAllDirectoriesForUpdate(ModelAndView view, @PathVariable(value = "id") String id) {
-        view.addObject("directoryListForUpdate", directoryService.getAllForUpdate(id));
-        return view;
-    }
-
     @RequestMapping(value = "/read/{id}", method = RequestMethod.GET)
     public ModelAndView getDirectoryById(ModelAndView view, @PathVariable(value = "id") String id){
-        //viene passato l'id della directory padre, quella a cui sto cercando di accedere per vedere il contenuto
-        //inserisco nella variabile presente lato front-end daughter_directory tutte le directory che hanno come padre
-        //la directory specificata
-        view.addObject("daughter_directory", directoryService.getAllDaughter(id));
-        //inserisco nella variabile presente lato front-end genericToDo tutti i genericToDo che hanno come riferimento
-        //la directory specificata
-        view.addObject("daughter_genericToDo", genericToDoService.getAllByDirectory(id));
-        //per recuperare l'elemento specifico, chiameró successivamente il getById che ritornerá task o event
-        
+        view.addObject("directories", directoryService.getAllDaughter(id));
+        view.addObject("todos", genericToDoService.getAllByDirectory(id));
+        view.addObject("allDirectories", directoryService.getAll());
+        view.addObject("directoryListForUpdate", directoryService.getAllForUpdate(null));
         return view;
     }
 
