@@ -34,7 +34,7 @@ public class GenericToDoController {
         view.addObject("tasks", taskService.getAll());
         view.addObject("events", eventService.getAll());
         view.addObject("users", usersService.getAll());
-        view.addObject("directories", directoryService.getAllParents());
+        view.addObject("directories", directoryService.getAll());
         return view;
     }
 
