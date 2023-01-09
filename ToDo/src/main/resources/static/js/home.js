@@ -1,5 +1,4 @@
 let whoo="", tId="", tTile="", tPriority="", tName="", eId="", eTitle="", eDate="", eName="";
-let directories, users;
 $(document).ready(
     () => {
         $(".new-filter").hide();
@@ -81,7 +80,7 @@ $(document).ready(
         });
 
         $(".createEvent").click(() => {
-            $('#modalEvent .modal-subtitles > p').text("Working with the event...")
+            $('#modalEvent .modal-subtitles > p').text("Creating an event...")
             $('#modalEvent form').attr("method", "post");
             $('#modalEvent form').attr("action", "/events/create");
             $('#modalEvent .modal-footer > a').hide();
@@ -114,7 +113,7 @@ $(document).ready(
         });
 
         $(".createTask").click(() => {
-            $('#modalTask .modal-subtitles > p').text("Creating the task...")
+            $('#modalTask .modal-subtitles > p').text("Creating a task...")
             $('#modalTask form').attr("method", "post");
             $('#modalTask form').attr("action", "/tasks/create");
             $('#modalTask .modal-footer > a').hide();

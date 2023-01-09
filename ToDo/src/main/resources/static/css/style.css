@@ -3,6 +3,7 @@ body {
     font-family: 'Montserrat', sans-serif;
     font-weight: 500;
     padding-top: 30px;
+    min-width: 375px;
 }
 
 .background {
@@ -571,4 +572,32 @@ form {
         margin-right: 0px;
     }
 }
+@media only screen and (max-width: 992px) {
+    .nav{
+        width: 50%;
+    }
+}
+@media only screen and (max-width: 780px) {
+    .nav{
+        width: 70%;
+    }
+}
+@media only screen and (max-width: 720px) {
+    .task{
+        margin-bottom: 20px;
+    }
+}
+@media only screen and (max-width: 580px) {
+    .nav{
+        width: 90%;
+    }
+}
+@media only screen and (max-width: 420px) {
+    .nav{
+        width: 100%;
+    }
+}
+
+
+
 

@@ -1,4 +1,4 @@
-<div th:fragment="modalTask" class="modal fade" id="modalTask" tabindex="-1" aria-hidden="true">
+<div th:fragment="modalTask(users, directories)" class="modal fade" id="modalTask" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <form>
             <div class="modal-content">
@@ -71,12 +71,15 @@
                     </div>
                     <div class="form-block">
                         <select class="input-form multiple" type="text" placeholder="" name="users_id" multiple>
+                            <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name+' '+user.surname}">
+                            </option>
                         </select>
                         <label class="alwaysActive">Users</label>
                     </div>
                     <div class="form-block">
                         <select class="input-form" type="text" placeholder="" name="directory_id">
-
+                            <option th:each="directory : ${directories}" th:value="${directory.id}" th:text="${directory.name}">
+                            </option>
                         </select>
                         <label>Directory</label>
                     </div>

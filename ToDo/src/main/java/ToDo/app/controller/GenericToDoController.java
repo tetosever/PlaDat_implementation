@@ -1,9 +1,7 @@
 package ToDo.app.controller;
 
 import ToDo.app.domain.GenericToDo;
-import ToDo.app.service.EventService;
-import ToDo.app.service.GenericToDoService;
-import ToDo.app.service.TaskService;
+import ToDo.app.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,11 +22,19 @@ public class GenericToDoController {
     @Autowired
     private GenericToDoService genericToDoService;
 
+    @Autowired
+    private UsersService usersService;
+
+    @Autowired
+    private DirectoryService directoryService;
+
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView getAllEventsWithView(){
         ModelAndView view = new ModelAndView("home.html");
         view.addObject("tasks", taskService.getAll());
         view.addObject("events", eventService.getAll());
+        view.addObject("users", usersService.getAll());
+        view.addObject("directories", directoryService.getAllParents());
         return view;
     }
 
