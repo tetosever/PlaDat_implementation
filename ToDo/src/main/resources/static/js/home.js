@@ -1,14 +1,13 @@
 let whoo="", tId="", tTile="", tPriority="", tName="", eId="", eTitle="", eDate="", eName="";
 $(document).ready(
     () => {
-        $(".new-filter").hide();
         $(".filter").click((e) =>
         {
             let id = e.target.id;
             if(id!=null && id!="")
             {
                 whoo=id;
-                $("#"+whoo+" > .new-filter").show();
+                $("#"+whoo+" > .new-filter").css( "display", "block" );
             }
         });
         $(".new-filter > span").click((e) => {
@@ -43,7 +42,7 @@ $(document).ready(
             {
                 $("#" + whoo).removeClass("filter-active");
             }
-            $("#" + whoo + " >form").hide();
+            $("#" + whoo + " >form").css( "display", "none" );
             $("#" + whoo + " >form").find("input").val("");
         });
         $(".card-event").click((e) => {
@@ -72,7 +71,7 @@ $(document).ready(
                 if (element.priority != null && element.priority != "") {
                     $('#modalEvent select:nth-child(3)').addClass("input-form-focus");
                 }
-                $('#modalEvent .modal-footer > a').show();
+                $('#modalEvent .modal-footer > a').css( "display", "block" );
                 $('#modalEvent .modal-footer > a').attr("href", "/events/delete/" + id);
                 $('#modalEvent .modal-subtitles > p').text("Working with the event...")
                 $('#modalEvent').modal('show');
@@ -83,7 +82,7 @@ $(document).ready(
             $('#modalEvent .modal-subtitles > p').text("Creating an event...")
             $('#modalEvent form').attr("method", "post");
             $('#modalEvent form').attr("action", "/events/create");
-            $('#modalEvent .modal-footer > a').hide();
+            $('#modalEvent .modal-footer > a').css( "display", "none" );
             $('#modalEvent').modal('show');
         })
 
@@ -105,7 +104,7 @@ $(document).ready(
                 if (element.role != null && element.role != "") {
                     $('#modalTask select').addClass("input-form-focus");
                 }
-                $('#modalTask .modal-footer > a').show();
+                $('#modalTask .modal-footer > a').css( "display", "block" );
                 $('#modalTask .modal-footer > a').attr("href", "/tasks/delete/" + id);
                 $('#modalTask .modal-subtitles > p').text("Working with the task...")
                 $('#modalTask').modal('show');
@@ -116,7 +115,7 @@ $(document).ready(
             $('#modalTask .modal-subtitles > p').text("Creating a task...")
             $('#modalTask form').attr("method", "post");
             $('#modalTask form').attr("action", "/tasks/create");
-            $('#modalTask .modal-footer > a').hide();
+            $('#modalTask .modal-footer > a').css( "display", "none" );
             $('#modalTask').modal('show');
         })
 
@@ -131,7 +130,7 @@ $(document).mouseup((e) =>
     let element = $(".new-filter");
     if (!element.is(e.target) && element.has(e.target).length === 0)
     {
-        element.hide();
+        element.css( "display", "none" );
         element.find("input").val("");
     }
 });

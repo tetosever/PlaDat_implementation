@@ -1,12 +1,6 @@
 $(document).ready(
     () => {
         //Here you can use users from Thymeleaf
-        directories.forEach((element) => {
-            $('#modalDirectory select').append($('<option>', {
-                value: element.id,
-                text: element.name
-            }));
-        });
         $(".cardDirectory").click((e) => {
             $("#modalDirectory select option").show();
             let id = e.target.id;
@@ -17,13 +11,14 @@ $(document).ready(
                 $('#modalDirectory form').attr("action", "/directories/update/" + id);
                 $('#modalDirectory input[name^="name"]').val(element.name);
                 $('#modalDirectory input[name^="name"]').addClass("input-form-focus");
-                $("#modalDirectory select option[value='"+element.id+"']").hide();
-                directories.forEach((chi) => {
-                    if(chi.directory!=null && chi.directory.id==element.id)
-                    {
-                        $("#modalDirectory select option[value='"+chi.id+"']").hide();
-                    }
+                $("#modalDirectory select").html("");
+                directoryListForUpdate.forEach((element) => {
+                    $('#modalDirectory select').append($('<option>', {
+                        value: element.id,
+                        text: element.name
+                    }));
                 });
+                $("#modalDirectory select option[value='"+element.id+"']").hide();
                 if(element.directory!=null)
                 {
                     $('#modalDirectory select').val(element.directory.id);
@@ -42,6 +37,13 @@ $(document).ready(
         });
 
         $(".createDirectory").click(() => {
+            $("#modalDirectory select").html("");
+            allDirectories.forEach((element) => {
+                $('#modalDirectory select').append($('<option>', {
+                    value: element.id,
+                    text: element.name
+                }));
+            });
             $("#modalDirectory select option").show();
             $('#modalDirectory .modal-subtitles > p').text("Creating the directory...")
             $('#modalDirectory form').attr("method", "post");

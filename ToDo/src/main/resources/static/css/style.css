@@ -96,7 +96,7 @@ h1, h2, h3, h4, h5, h6, h7 {
     border-radius: 10px;
     margin-top: 20px;
     height: 70px;
-    background-color: white;
+    background-color: rgba(0, 0, 0, .4);
     padding: 10px;
 }
 
@@ -119,12 +119,10 @@ h1, h2, h3, h4, h5, h6, h7 {
 }
 
 .task-body-head > div > :nth-child(1), .events-body-head > div > :nth-child(1) {
-    color: #246ffa;
     margin-bottom: 0px;
 }
 
 .events-body-head > div > p:nth-child(2) {
-    color: #246ffa;
     font-size: 11px;
     margin-bottom: 5px;
     margin-left: 5px;
@@ -132,13 +130,17 @@ h1, h2, h3, h4, h5, h6, h7 {
 
 .task-body-head > div > p:nth-child(2), .events-body-head > div > p:nth-child(3) {
     margin-left: 10px;
-    color: black;
     margin-bottom: 0px;
 }
 
 button:focus, .btn-close:focus {
     outline: none !important;
     box-shadow: none;
+}
+button:focus-visible, nav-item:focus-visible
+{
+    box-shadow: none !important;
+    outline: none!important;
 }
 
 @keyframes bganimation {
@@ -153,19 +155,6 @@ button:focus, .btn-close:focus {
     }
 }
 
-.task-body-head > div > button:nth-child(3), .events-body-head > div > button:nth-child(4) {
-    margin-left: auto;
-    background-color: white;
-    border: 0px;
-    color: #989fa5;
-}
-
-.task-body-head > div > button:nth-child(4), .events-body-head > div > button:nth-child(5) {
-    background-color: white;
-    border: 0px;
-    color: #989fa5;
-}
-
 .new-filter {
     background-color: rgba(0, 0, 0, .35);;
     padding: 6px;
@@ -175,6 +164,7 @@ button:focus, .btn-close:focus {
     position: absolute;
     top: 35px;
     left: -87px;
+    display: none;
 }
 
 .new-filter > input {
@@ -287,6 +277,7 @@ input:focus {
     margin-top:20px;
     background-color: rgba(0, 0, 0, .4);
     height: calc(100vh - 205px);
+    grid-auto-rows: 0fr;
 }
 
 .stakeholder-body > div {
@@ -312,15 +303,28 @@ input:focus {
     justify-content: center;
     height: fit-content;
 }
-
-.cardDirectory > svg, .cardStakeholder > svg {
+.cardTodo
+{
+    background-color: rgba(0, 0, 0, 0.35);
+    border-radius: 10px;
+    color: white;
+    padding: 20px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: fit-content;
+    pointer-events: none;
+}
+.cardDirectory > svg,.cardTodo >svg, .cardStakeholder > svg {
     pointer-events: none;
     width: 30px;
     height: auto;
     margin: 0 auto;
 }
 
-.cardDirectory > p, .cardStakeholder > p {
+.cardDirectory > p, .cardTodo >p .cardStakeholder > p {
     pointer-events: none;
     margin-top: 10px;
     margin-bottom: 0px;
@@ -328,24 +332,6 @@ input:focus {
 button > p, button > svg
 {
     pointer-events: none !important;
-}
-.cardDirectory > div {
-    margin-left: auto;
-    margin-bottom: 10px;
-}
-
-.cardDirectory > div > button:nth-child(1) {
-    margin-left: auto;
-    background-color: transparent;
-    border: 0px;
-    color: white;
-}
-
-.cardDirectory > div > button:nth-child(2) {
-    margin-left: -8px;
-    background-color: transparent;
-    border: 0px;
-    color: white;
 }
 
 .modal-content {

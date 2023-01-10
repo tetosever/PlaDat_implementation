@@ -42,7 +42,8 @@ public class DirectoryController {
     }
 
     @RequestMapping(value = "/read/{id}", method = RequestMethod.GET)
-    public ModelAndView getDirectoryById(ModelAndView view, @PathVariable(value = "id") String id){
+    public ModelAndView getDirectoryById(@PathVariable(value = "id") String id){
+        ModelAndView view = new ModelAndView("directories.html");
         view.addObject("directories", directoryService.getAllDaughter(id));
         view.addObject("todos", genericToDoService.getAllByDirectory(id));
         view.addObject("allDirectories", directoryService.getAll());

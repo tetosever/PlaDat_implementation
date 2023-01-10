@@ -6,11 +6,11 @@ $(document).ready(() => {
     })
 
     $(".input-form").focusout((e) => {
-        if ($(e.target).val() == null || $(e.target).val().trim() == "") {
+        if ($(e.target).val() == null || $(e.target).val() == "") {
             $(e.target).val("");
             $(e.target).removeClass('input-form-focus');
         } else {
-            $(e.target).val($(e.target).val().trim());
+            $(e.target).val($(e.target).val());
         }
     });
 

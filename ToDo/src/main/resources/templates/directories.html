@@ -35,6 +35,9 @@
                 <th:block th:each="directory : ${directories}"
                           th:insert="fragments/cardDirectory :: cardDirectory(${directory})" th:remove="tag">
                 </th:block>
+                <th:block th:each="toDo : ${todos}"
+                          th:insert="fragments/cardTodo :: cardTodo(${toDo})" th:remove="tag">
+                </th:block>
             </div>
         </div>
     </div>
@@ -47,6 +50,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script th:inline="javascript">
     let directories = [[${directories}]];
+    let allDirectories = [[${allDirectories}]];
+    let directoryListForUpdate = [[${directoryListForUpdate}]];
 </script>
 <script type="text/javascript" th:src="@{/js/general.js}"></script>
 <script type="text/javascript" th:src="@{/js/directory.js}"></script>
