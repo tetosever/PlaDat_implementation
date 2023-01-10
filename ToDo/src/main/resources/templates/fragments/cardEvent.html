@@ -1,8 +1,8 @@
 <div class="card-event" th:fragment="cardEvent(event)" th:id="${event.id}">
     <div class="events-body-head">
         <div>
-            <p>17</p>
-            <p>MAY</p>
+            <p th:text="${#temporals.format(event.start_date, 'dd')}"></p>
+            <p th:text="${#temporals.format(event.start_date, 'MM')}"></p>
             <p th:text="${event.title}"></p>
         </div>
     </div>

@@ -70,14 +70,14 @@
                         <label>Place</label>
                     </div>
                     <div class="form-block">
-                        <select class="input-form multiple" type="text" placeholder="" name="users_id" multiple>
+                        <select class="input-form multiple" type="text" placeholder="" name="user_id" multiple required>
                             <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name+' '+user.surname}">
                             </option>
                         </select>
                         <label class="alwaysActive">Users</label>
                     </div>
                     <div class="form-block">
-                        <select class="input-form" type="text" placeholder="" name="directory_id">
+                        <select class="input-form" type="text" placeholder="" name="directory_id" required>
                             <option th:each="directory : ${directories}" th:value="${directory.id}" th:text="${directory.name}">
                             </option>
                         </select>

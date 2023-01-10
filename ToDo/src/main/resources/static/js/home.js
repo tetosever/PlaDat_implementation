@@ -90,6 +90,7 @@ $(document).ready(
             $(".input-form").val("");
         })
         $(".card-task").click((e) => {
+            alert();
             let id = e.target.id;
             let element = users.find(ele => ele.id == id);
             id=id.toString().replaceAll('-','');
