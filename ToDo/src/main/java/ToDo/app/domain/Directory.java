@@ -1,6 +1,8 @@
 package ToDo.app.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.util.List;
 import lombok.Getter;
 import lombok.NonNull;
@@ -15,6 +17,9 @@ import org.hibernate.annotations.Type;
 @Setter
 @Getter
 @Entity
+@JsonIdentityInfo(
+    generator = ObjectIdGenerators.PropertyGenerator.class,
+    property = "id")
 public class Directory {
 
     @Id
@@ -31,8 +36,7 @@ public class Directory {
     @JoinColumn(name = "directory_id", referencedColumnName = "id")
     private Directory directory;
     
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "directory")
-    @JsonManagedReference
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "directory", cascade = CascadeType.MERGE)
     private List<GenericToDo> genericToDoList;
 
 }

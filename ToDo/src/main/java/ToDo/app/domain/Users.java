@@ -1,5 +1,7 @@
 package ToDo.app.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
@@ -15,6 +17,9 @@ import org.hibernate.annotations.Type;
 @Setter
 @Getter
 @Entity
+@JsonIdentityInfo(
+    generator = ObjectIdGenerators.PropertyGenerator.class,
+    property = "id")
 public class Users {
 
     @Id

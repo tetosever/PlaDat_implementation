@@ -48,6 +48,7 @@ public class DirectoryController {
         view.addObject("todos", genericToDoService.getAllByDirectory(id));
         view.addObject("allDirectories", directoryService.getAll());
         view.addObject("directoryListForUpdate", directoryService.getAllForUpdate(null));
+        view.addObject("goBackDirectory", directoryService.getById(id));
         return view;
     }
 

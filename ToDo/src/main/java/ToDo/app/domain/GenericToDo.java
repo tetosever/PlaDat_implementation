@@ -1,6 +1,9 @@
 package ToDo.app.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.util.List;
 import java.util.UUID;
 import javax.persistence.CascadeType;
@@ -27,6 +30,9 @@ import org.hibernate.annotations.Type;
 @Getter
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@JsonIdentityInfo(
+    generator = ObjectIdGenerators.PropertyGenerator.class,
+    property = "id")
 public class GenericToDo {
 
     @Id
@@ -53,6 +59,5 @@ public class GenericToDo {
     @NotNull
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "directory_id", referencedColumnName = "id", nullable = false)
-    @JsonBackReference
     private Directory directory;
 }
