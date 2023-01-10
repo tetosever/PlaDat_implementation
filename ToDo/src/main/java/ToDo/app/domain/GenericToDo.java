@@ -1,5 +1,6 @@
 package ToDo.app.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.util.List;
 import java.util.UUID;
 import javax.persistence.CascadeType;
@@ -52,5 +53,6 @@ public class GenericToDo {
     @NotNull
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "directory_id", referencedColumnName = "id", nullable = false)
+    @JsonBackReference
     private Directory directory;
 }

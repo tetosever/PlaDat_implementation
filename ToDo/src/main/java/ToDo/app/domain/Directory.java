@@ -1,5 +1,6 @@
 package ToDo.app.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.List;
 import lombok.Getter;
 import lombok.NonNull;
@@ -31,6 +32,7 @@ public class Directory {
     private Directory directory;
     
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "directory")
+    @JsonManagedReference
     private List<GenericToDo> genericToDoList;
 
 }
