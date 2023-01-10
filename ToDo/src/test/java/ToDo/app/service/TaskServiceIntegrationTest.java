@@ -90,7 +90,7 @@ public class TaskServiceIntegrationTest {
 
     @Test
     public void getAllByFilter_whenOnlyTitleTest() {
-        List<Task> taskList = taskService.getAllByFilter("Prova1", null, null);
+        List<Task> taskList = taskService.getAllByFilter(null, "Prova1", null, null);
         assertTrue(taskList.size() == 3);
         assertEquals("Event1 title should be equals", taskList.get(0).getTitle(), "Prova1");
         assertEquals("Event2 title should be equals", taskList.get(1).getTitle(), "Prova1");
@@ -103,7 +103,7 @@ public class TaskServiceIntegrationTest {
 
     @Test
     public void getAllByFilter_whenOnlyStartDateTest() {
-        List<Task> taskList = taskService.getAllByFilter(null, Priority.High.toString(), null);
+        List<Task> taskList = taskService.getAllByFilter(null, null, Priority.High.toString(), null);
         assertTrue(taskList.size() == 3);
         assertEquals("Event1 title should be equals", taskList.get(0).getTitle(), "Prova1");
 
@@ -112,7 +112,7 @@ public class TaskServiceIntegrationTest {
 
     @Test
     public void getAllByFilter_whenOnlyUserTest() {
-        List<Task> taskList = taskService.getAllByFilter(null, null, "Severgnini");
+        List<Task> taskList = taskService.getAllByFilter(null, null, null, "Severgnini");
         assertTrue(taskList.size() == 2);
         assertEquals("Event1 title should be equals", taskList.get(0).getTitle(), "Prova1");
         assertEquals("Event2 title should be equals", taskList.get(1).getTitle(), "Prova1");
@@ -124,13 +124,13 @@ public class TaskServiceIntegrationTest {
 
     @Test
     public void getAllByFilter_whenAllParametersDoesNotFoundTest() {
-        List<Task> taskList = taskService.getAllByFilter("Prova1", Priority.High.toString(), "Piazza");
+        List<Task> taskList = taskService.getAllByFilter(null, "Prova1", Priority.High.toString(), "Piazza");
         assertTrue(taskList.size() == 0);
     }
 
     @Test
     public void getAllByFilter_whenAllParametersFoundTest() {
-        List<Task> taskList = taskService.getAllByFilter("Prova1", Priority.High.toString(), "Severgnini");
+        List<Task> taskList = taskService.getAllByFilter(null, "Prova1", Priority.High.toString(), "Severgnini");
         assertTrue(taskList.size() == 2);
         assertEquals("Event1 title should be equals", taskList.get(0).getTitle(), "Prova1");
         assertEquals("Event1 title should be equals", taskList.get(1).getTitle(), "Prova1");

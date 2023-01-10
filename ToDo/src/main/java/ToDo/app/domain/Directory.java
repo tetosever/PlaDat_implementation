@@ -12,6 +12,8 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.UUID;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Type;
 
 @Setter
@@ -32,11 +34,12 @@ public class Directory {
     @NotBlank
     private String name;
     
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "directory_id", referencedColumnName = "id")
     private Directory directory;
     
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "directory", cascade = CascadeType.MERGE)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "directory", cascade = CascadeType.ALL)
     private List<GenericToDo> genericToDoList;
 
 }

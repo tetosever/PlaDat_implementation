@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.regex.Pattern;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -93,6 +94,7 @@ public class DirectoryService {
         directoryRepository.save(savedDirectory);
     }
 
+    @Transactional
     public void delete(String id){
         UUID uuid = toUUID(id);
         directoryValidator.validateId(uuid);

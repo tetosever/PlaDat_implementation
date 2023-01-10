@@ -113,8 +113,13 @@ public class EventService {
         eventRepository.delete(eventExists(uuid));
     }
     
-    public List<Event> getAllByFilter(String title, String start_date, String name) {
+    public List<Event> getAllByFilter(String id, String title, String start_date, String name) {
         List<Event> eventList = new ArrayList<>();
+
+        if (id != null) {
+            eventList.add(getById(id));
+            return eventList;
+        }
         
         if (title != null && !title.isEmpty()) {
             if (start_date != null && !start_date.isEmpty()) {

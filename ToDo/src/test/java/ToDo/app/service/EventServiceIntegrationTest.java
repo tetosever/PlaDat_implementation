@@ -88,7 +88,7 @@ public class EventServiceIntegrationTest {
     
     @Test
     public void getAllByFilter_whenOnlyTitleTest() {
-        List<Event> eventList = eventService.getAllByFilter("Prova1", null, null);
+        List<Event> eventList = eventService.getAllByFilter(null, "Prova1", null, null);
         assertTrue(eventList.size() == 3);
         assertEquals("Event1 title should be equals", eventList.get(0).getTitle(), "Prova1");
         assertEquals("Event2 title should be equals", eventList.get(1).getTitle(), "Prova1");
@@ -101,7 +101,7 @@ public class EventServiceIntegrationTest {
 
     @Test
     public void getAllByFilter_whenOnlyStartDateTest() {
-        List<Event> eventList = eventService.getAllByFilter(null, LocalDate.now().toString(), null);
+        List<Event> eventList = eventService.getAllByFilter(null, null, LocalDate.now().toString(), null);
         assertTrue(eventList.size() == 3);
         assertEquals("Event1 title should be equals", eventList.get(0).getTitle(), "Prova1");
 
@@ -110,7 +110,7 @@ public class EventServiceIntegrationTest {
 
     @Test
     public void getAllByFilter_whenOnlyUserTest() {
-        List<Event> eventList = eventService.getAllByFilter(null, null, "Severgnini");
+        List<Event> eventList = eventService.getAllByFilter(null, null, null, "Severgnini");
         assertTrue(eventList.size() == 2);
         assertEquals("Event1 title should be equals", eventList.get(0).getTitle(), "Prova1");
         assertEquals("Event2 title should be equals", eventList.get(1).getTitle(), "Prova1");
@@ -122,13 +122,13 @@ public class EventServiceIntegrationTest {
 
     @Test
     public void getAllByFilter_whenAllParametersDoesNotFoundTest() {
-        List<Event> eventList = eventService.getAllByFilter("Prova1", LocalDate.now().toString(), "Piazza");
+        List<Event> eventList = eventService.getAllByFilter(null, "Prova1", LocalDate.now().toString(), "Piazza");
         assertTrue(eventList.size() == 0);
     }
 
     @Test
     public void getAllByFilter_whenAllParametersFoundTest() {
-        List<Event> eventList = eventService.getAllByFilter("Prova1", LocalDate.now().toString(), "Severgnini");
+        List<Event> eventList = eventService.getAllByFilter(null, "Prova1", LocalDate.now().toString(), "Severgnini");
         assertTrue(eventList.size() == 1);
         assertEquals("Event1 title should be equals", eventList.get(0).getTitle(), "Prova1");
 

@@ -1,15 +1,21 @@
 package ToDo.app.controller;
 
+import ToDo.app.domain.Directory;
 import ToDo.app.domain.Event;
+import ToDo.app.domain.Task;
+import ToDo.app.domain.Users;
 import ToDo.app.service.EventService;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -68,14 +74,37 @@ public class EventController {
         return new ModelAndView("redirect:/");
     }
 
-    @RequestMapping(value = "/events/read/{title}/{start_date}/{user}", method = RequestMethod.GET)
+    /*
+    //bisogna passare le variabili thymeleaf al metodo che poi tornerá la view reimpostando i valori originali
+    @RequestMapping(value = "/events/read/{id}/{title}/{start_date}/{user}", method = RequestMethod.GET)
     public ModelAndView getAllByFilter(
-            ModelAndView view,
+            @ModelAttribute(value = "tasks") List<Task> taskList,
+            @ModelAttribute(value = "users") List<Users> usersList,
+            @ModelAttribute(value = "directories") List<Directory> directoryList,
+            @PathVariable(value = "id") String id,
             @PathVariable(value = "title") String title,
             @PathVariable(value = "start_date") String start_date,
             @PathVariable(value = "user") String name)
     {
-        view.addObject("filterEvent", eventService.getAllByFilter(title, start_date, name));
+        ModelAndView view = new ModelAndView("home.html");
+        view.addObject("tasks", taskList);
+        view.addObject("users", usersList);
+        view.addObject("directories", directoryList);
+        view.addObject("events", eventService.getAllByFilter(id, title, start_date, name));
         return view;
     }
+    
+     */
+    
+    @ResponseBody
+    @RequestMapping(value = "/events/read/{id}/{title}/{start_date}/{user}", method = RequestMethod.GET)
+    public List<Event> getAllByFilter(
+        @PathVariable(value = "title") String id,
+        @PathVariable(value = "title") String title,
+        @PathVariable(value = "start_date") String start_date,
+        @PathVariable(value = "user") String name)
+    {
+        return eventService.getAllByFilter(id, title, start_date, name);
+    }
+    
 }

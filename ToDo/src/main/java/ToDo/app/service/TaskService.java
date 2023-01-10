@@ -90,8 +90,13 @@ public class TaskService {
         taskRepository.delete(taskExists(uuid));
     }
 
-    public List<Task> getAllByFilter(String title, String priority, String name) {
+    public List<Task> getAllByFilter(String id, String title, String priority, String name) {
         List<Task> taskList = new ArrayList<>();
+        
+        if (id != null) {
+            taskList.add(getById(id));
+            return taskList;
+        }
 
         if (title != null && !title.isEmpty()) {
             if (priority != null && EnumUtils.isValidEnum(Priority.class, priority.trim())) {

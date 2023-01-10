@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -66,6 +67,7 @@ public class TaskController {
         return new ModelAndView("redirect:/");
     }
 
+    /*
     @RequestMapping(value = "/events/read/{title}/{start_date}/{user}", method = RequestMethod.GET)
     public ModelAndView getAllByFilter(
         ModelAndView view,
@@ -75,5 +77,17 @@ public class TaskController {
     {
         view.addObject("filterTask", taskService.getAllByFilter(title, priority, name));
         return view;
+    }
+     */
+
+    @ResponseBody
+    @RequestMapping(value = "/events/read/{id}/{title}/{start_date}/{user}", method = RequestMethod.GET)
+    public List<Task> getAllByFilterAndId(
+        @PathVariable(value = "id") String id,
+        @PathVariable(value = "title") String title,
+        @PathVariable(value = "priority") String priority,
+        @PathVariable(value = "user") String name)
+    {
+        return taskService.getAllByFilter(id, title, priority, name);
     }
 }
