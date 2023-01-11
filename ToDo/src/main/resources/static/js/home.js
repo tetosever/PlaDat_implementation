@@ -229,11 +229,11 @@ $(document).mouseup((e) => {
 function sendRequest(w) {
     alert(w);
     if ($("#"+w).hasClass("f-events")) {
-        $.get("/events/read/" + eId + "/" + eTitle + "/" + eDate + "/" + eName, function (data) {
+        $.get("/events/read?id=" + eId + "&title=" + eTitle + "&start_date=" + eDate + "&user=" + eName, function (data) {
             alert("Load was performed.");
         });
     } else {
-        $.get("/tasks/read/" + tId + "/" + tTile + "/" + tPriority + "/" + eName, function (data) {
+        $.get("/tasks/read?id=" + tId + "&title=" + tTile + "&priority=" + tPriority + "&user=" + eName, function (data) {
             alert("Load was performed.");
         });
     }
