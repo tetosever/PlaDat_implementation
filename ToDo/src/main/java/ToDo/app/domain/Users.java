@@ -39,7 +39,7 @@ public class Users {
     @Enumerated(EnumType.STRING)
     private Role role;
     
-    @ManyToMany(mappedBy = "usersList")
+    @ManyToMany(mappedBy = "usersList", cascade = CascadeType.REMOVE)
     private List<GenericToDo> genericToDoList;
 
 }

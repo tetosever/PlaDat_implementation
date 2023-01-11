@@ -39,7 +39,7 @@ public class Directory {
     @JoinColumn(name = "directory_id", referencedColumnName = "id")
     private Directory directory;
     
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "directory", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "directory", cascade = CascadeType.REMOVE)
     private List<GenericToDo> genericToDoList;
 
 }
