@@ -47,7 +47,6 @@ $(document).ready(
             let text;
             if($("#" + whoo + ">form > input").length)
             {
-                alert("here");
                 text=$("#" + whoo + ">form>input").val().trim();
             }
             else
