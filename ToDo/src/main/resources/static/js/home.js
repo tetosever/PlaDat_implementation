@@ -1,4 +1,4 @@
-let whoo="", tId=null, tTile=null, tPriority=null, tName=null, eId=null, eTitle=null, eDate=null, eName=null;
+let whoo="", tId=null, tTile=null, tPriority=null, tName=null, tName=null, eId=null, eTitle=null, eDate=null, eName=null;
 $(document).ready(
     () => {
         $(".filter").click((e) =>
@@ -15,32 +15,79 @@ $(document).ready(
             if (text != "") {
                 switch (whoo) {
                     case "f-t-id": {
+                        tId=text;
                         break;
                     }
                     case "f-t-title": {
+                        tTile=text;
                         break;
                     }
                     case "f-t-priority": {
+                        tPriority=text;
                         break;
                     }
                     case "f-t-user": {
+                        tName=text;
                         break;
                     }
-                    case "f-t-id": {
+                    case "e-t-id": {
+                        eId=text;
                         break;
                     }
-                    case "f-t-id": {
+                    case "e-t-title": {
+                        eTitle=text;
                         break;
                     }
-                    case "f-t-id": {
+                    case "e-t-date": {
+                        eDate=text;
+                        break;
+                    }
+                    case "e-t-user": {
+                        eName=text;
                         break;
                     }
                 };
                 $("#" + whoo).addClass("filter-active");
+                sendRequest(whoo)
             }
             else
             {
+                switch (whoo) {
+                    case "f-t-id": {
+                        tId = null;
+                        break;
+                    }
+                    case "f-t-title": {
+                        tTile = null;
+                        break;
+                    }
+                    case "f-t-priority": {
+                        tPriority = null;
+                        break;
+                    }
+                    case "f-t-user": {
+                        tName = null;
+                        break;
+                    }
+                    case "e-t-id": {
+                        eId = null;
+                        break;
+                    }
+                    case "e-t-title": {
+                        eTitle = null;
+                        break;
+                    }
+                    case "e-t-date": {
+                        eDate = null;
+                        break;
+                    }
+                    case "e-t-user": {
+                        eName = null;
+                        break;
+                    }
+                }
                 $("#" + whoo).removeClass("filter-active");
+
             }
             $("#" + whoo + " >form").css( "display", "none" );
             $("#" + whoo + " >form").find("input").val("");
@@ -154,3 +201,19 @@ $(document).mouseup((e) =>
         element.find("input").val("");
     }
 });
+function sendRequest(w)
+{
+    if(w.hasClass("f-events"))
+    {
+        $.get( "/events/read/"+eId+"/"+eTitle+"/"+eDate+"/"+eName, function( data ) {
+            alert( "Load was performed." );
+        });
+    }
+    else
+    {
+        $.get( "/tasks/read/"+tId+"/"+tTile+"/"+tPriority+"/"+eName, function( data ) {
+            alert( "Load was performed." );
+        });
+    }
+
+}
