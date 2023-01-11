@@ -80,8 +80,8 @@ public class TaskController {
     }
      */
 
-    @ResponseBody
-    @RequestMapping(value = "/events/read/{id}/{title}/{start_date}/{user}", method = RequestMethod.GET)
+    //@ResponseBody
+    @RequestMapping(value = "/read/{id}/{title}/{priority}/{user}", method = RequestMethod.GET)
     public List<Task> getAllByFilterAndId(
         @PathVariable(value = "id") String id,
         @PathVariable(value = "title") String title,

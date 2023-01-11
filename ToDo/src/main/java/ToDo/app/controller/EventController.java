@@ -97,9 +97,9 @@ public class EventController {
      */
     
     @ResponseBody
-    @RequestMapping(value = "/events/read/{id}/{title}/{start_date}/{user}", method = RequestMethod.GET)
+    @RequestMapping(value = "/read/{id}/{title}/{start_date}/{user}", method = RequestMethod.GET)
     public List<Event> getAllByFilter(
-        @PathVariable(value = "title") String id,
+        @PathVariable(value = "id") String id,
         @PathVariable(value = "title") String title,
         @PathVariable(value = "start_date") String start_date,
         @PathVariable(value = "user") String name)
