@@ -1,5 +1,11 @@
-<form class="new-filter" th:fragment="filter" th:classappend="${who}">
-    <input type="text" required>
+<form class="new-filter" th:fragment="filter(cosa)" th:classappend="${who}">
+    <input th:if="${cosa == 'date'}" type="date" required>
+    <input th:if="${cosa == 'normal'}" type="text" required>
+    <select th:if="${cosa == 'priority'}" placeholder="" required>
+        <option value="High">High</option>
+        <option value="Medium">Medium</option>
+        <option value="Low">Low</option>
+    </select>
     <span>
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
            class="bi bi-arrow-return-left" viewBox="0 0 16 16">

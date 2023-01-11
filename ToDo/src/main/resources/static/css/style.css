@@ -133,6 +133,10 @@ h1, h2, h3, h4, h5, h6, h7 {
     margin-top: 10px;
     height: 100%;
 }
+.filter > svg, .filter > span
+{
+    pointer-events: none;
+}
 .exception
 {
     display: flex;
@@ -212,7 +216,7 @@ button:focus-visible, nav-item:focus-visible, .nav-link:focus-visible
     display: none;
 }
 
-.new-filter > input {
+.new-filter > input{
     border: 0px;
     border-bottom: 2px solid white;
     background-color: transparent;
@@ -221,8 +225,27 @@ button:focus-visible, nav-item:focus-visible, .nav-link:focus-visible
     color: white;
     display: inline-block;
 }
+.new-filter > select
+{
+    width: 200px;
+    background-color: transparent;
+    border: none;
+    color: white;
+    border:0px;
+    border-bottom: 2px;
+    border-color: white !important;
+    height: 16.5px !important;
+}
+select:focus-visible
+{
+    outline: none;
+}
+.new-filter > select > option
+{
+    color: black;
+}
 
-.new-filter > input:focus {
+.new-filter > input:focus, .new-filter > select:focus {
     border: 0px;
     border-bottom: 2px solid white;
 }

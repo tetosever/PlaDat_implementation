@@ -16,7 +16,7 @@ $(document).ready(
                         break;
                     }
                     case "f-t-priority": {
-                        $("#"+whoo+" > form > input").val(tPriority);
+                        $("#"+whoo+" > form > select").val(tPriority);
                         break;
                     }
                     case "f-t-name": {
@@ -32,7 +32,7 @@ $(document).ready(
                         break;
                     }
                     case "f-e-date": {
-                        $("#"+whoo+" > form > input").val(eTitle);
+                        $("#"+whoo+" > form > input").val(eDate);
                         break;
                     }
                     case "f-e-user": {
@@ -44,7 +44,16 @@ $(document).ready(
             }
         });
         $(".new-filter > span").click((e) => {
-            let text = $("#" + whoo + ">form>input").val().trim();
+            let text;
+            if($("#" + whoo + ">form > input").length)
+            {
+                alert("here");
+                text=$("#" + whoo + ">form>input").val().trim();
+            }
+            else
+            {
+                text=$("#" + whoo + ">form>select").val();
+            }
             if (text != "") {
                 switch (whoo) {
                     case "f-t-id": {
@@ -122,6 +131,7 @@ $(document).ready(
             }
             $("#" + whoo + " >form").css("display", "none");
             $("#" + whoo + " >form").find("input").val("");
+            $("#" + whoo + " >form").find("select").val("");
         });
         $(".card-event").click((e) => {
             let id = e.target.id;
@@ -223,11 +233,11 @@ $(document).mouseup((e) => {
     if (!element.is(e.target) && element.has(e.target).length === 0) {
         element.css("display", "none");
         element.find("input").val("");
+        element.find("select").val("");
     }
 });
 
 function sendRequest(w) {
-    alert(w);
     if ($("#"+w).hasClass("f-events")) {
         $.get("/events/read?id=" + eId + "&title=" + eTitle + "&start_date=" + eDate + "&user=" + eName, function (data) {
             alert("Load was performed.");
