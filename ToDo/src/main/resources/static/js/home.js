@@ -1,4 +1,4 @@
-let whoo="", tId="", tTile="", tPriority="", tName="", eId="", eTitle="", eDate="", eName="";
+let whoo="", tId=null, tTile=null, tPriority=null, tName=null, eId=null, eTitle=null, eDate=null, eName=null;
 $(document).ready(
     () => {
         $(".filter").click((e) =>
@@ -54,22 +54,29 @@ $(document).ready(
                 $('#modalEvent form').attr("action", "/events/update/" + id);
                 $('#modalEvent input[name^="title"]').val(element.title);
                 $('#modalEvent input[name^="title"]').addClass("input-form-focus");
-                $('#modalEvent input[name^="description"]').val(element.description);
-                $('#modalEvent input[name^="description"]').addClass("input-form-focus");
-                $('#modalEvent select:nth-child(3)').val(element.priority);
-                if (element.priority != null && element.priority != "") {
-                    $('#modalEvent select:nth-child(3)').addClass("input-form-focus");
+                $('#modalEvent input[name^="start_date"]').val(element.start_date);
+                if(element.start_date != null && element.start_date != "")
+                {
+                    $('#modalEvent input[name^="start_date"]').addClass("input-form-focus");
                 }
-                $('#modalEvent select:nth-child(3)').val(element.priority);
-                if (element.priority != null && element.priority != "") {
-                    $('#modalEvent select:nth-child(3)').addClass("input-form-focus");
-                }$('#modalEvent select:nth-child(3)').val(element.usersList);
-                if (element.usersList != null && element.usersList != "") {
-                    $('#modalEvent select:nth-child(3)').addClass("input-form-focus");
+                $('#modalEvent input[name^="end_date"]').val(element.end_date);
+                if(element.end_date != null && element.end_date != "")
+                {
+                    $('#modalEvent input[name^="end_date"]').addClass("input-form-focus");
                 }
-                $('#modalEvent select:nth-child(3)').val(element.directory.id);
-                if (element.priority != null && element.priority != "") {
-                    $('#modalEvent select:nth-child(3)').addClass("input-form-focus");
+                $('#modalEvent input[name^="place"]').val(element.place);
+                if(element.place != null && element.place != "")
+                {
+                    $('#modalEvent input[name^="place"]').addClass("input-form-focus");
+                }
+                let tmp = element.usersList.map(a => a.id);
+                $('#modalEvent .ss1').val(tmp);
+                if (tmp != null && tmp!=[]) {
+                    $('#modalEvent .ss1').addClass("input-form-focus");
+                }
+                $('#modalEvent .ss2').val(element.directory.id);
+                if (element.directory.id != null && element.directory.id != "") {
+                    $('#modalEvent .ss2').addClass("input-form-focus");
                 }
                 $('#modalEvent .modal-footer > a').css( "display", "block" );
                 $('#modalEvent .modal-footer > a').attr("href", "/events/delete/" + id);
@@ -90,20 +97,32 @@ $(document).ready(
             $(".input-form").val("");
         })
         $(".card-task").click((e) => {
-            alert();
             let id = e.target.id;
-            let element = users.find(ele => ele.id == id);
+            let element = tasks.find(ele => ele.id == id);
             id=id.toString().replaceAll('-','');
             if (element != null) {
                 $('#modalTask form').attr("method", "post");
                 $('#modalTask form').attr("action", "/tasks/update/" + id);
-                $('#modalTask input[name^="name"]').val(element.name);
-                $('#modalTask input[name^="name"]').addClass("input-form-focus");
-                $('#modalTask input[name^="surname"]').val(element.surname);
-                $('#modalTask input[name^="surname"]').addClass("input-form-focus");
-                $('#modalTask select').val(element.role);
-                if (element.role != null && element.role != "") {
-                    $('#modalTask select').addClass("input-form-focus");
+                $('#modalTask input[name^="title"]').val(element.title);
+                $('#modalTask input[name^="title"]').addClass("input-form-focus");
+                $('#modalTask input[name^="description"]').val(element.description);
+                if(element.description != null && element.description != "")
+                {
+                    $('#modalTask input[name^="description"]').addClass("input-form-focus");
+                }
+                $('#modalTask .ss3').val(element.priority);
+                if(element.priority != null && element.priority != "")
+                {
+                    $('#modalTask .ss3').addClass("input-form-focus");
+                }
+                let tmp = element.usersList.map(a => a.id);
+                $('#modalTask .ss1').val(tmp);
+                if (tmp != null && tmp!=[]) {
+                    $('#modalTask .ss1').addClass("input-form-focus");
+                }
+                $('#modalTask .ss2').val(element.directory.id);
+                if (element.directory.id != null && element.directory.id != "") {
+                    $('#modalTask .ss2').addClass("input-form-focus");
                 }
                 $('#modalTask .modal-footer > a').css( "display", "block" );
                 $('#modalTask .modal-footer > a').attr("href", "/tasks/delete/" + id);

@@ -1,10 +1,10 @@
 package ToDo.app.controller;
 
 import ToDo.app.domain.Directory;
-import ToDo.app.domain.GenericToDo;
 import ToDo.app.service.DirectoryService;
 import ToDo.app.service.GenericToDoService;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +33,7 @@ public class DirectoryController {
         view.addObject("todos", genericToDoService.getAllByDirectory(null));
         view.addObject("allDirectories", directoryService.getAll());
         view.addObject("directoryListForUpdate", directoryService.getAllForUpdate(null));
+        view.addObject("goBackDirectory", "");
         return view;
     }
 
@@ -48,7 +49,8 @@ public class DirectoryController {
         view.addObject("todos", genericToDoService.getAllByDirectory(id));
         view.addObject("allDirectories", directoryService.getAll());
         view.addObject("directoryListForUpdate", directoryService.getAllForUpdate(null));
-        view.addObject("goBackDirectory", directoryService.getById(id));
+        Directory temp =  directoryService.getById(id).getDirectory();
+        view.addObject("goBackDirectory", temp != null ? temp.getId() : "");
         return view;
     }
 

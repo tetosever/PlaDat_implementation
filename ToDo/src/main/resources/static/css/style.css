@@ -131,6 +131,31 @@ h1, h2, h3, h4, h5, h6, h7 {
     overflow-x: hidden;
     flex: 0 1 auto;
     margin-top: 10px;
+    height: 100%;
+}
+.exception
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 135px);
+}
+.exception > div:nth-child(1)
+{
+    text-align: center;
+    color: white;
+}
+.exception > div:nth-child(1) > h4
+{
+    margin-top: 10px;
+}
+.exception > div:nth-child(1) > p
+{
+    margin-top: 5px;
+}
+.task-body-head, .events-body-head
+{
+    pointer-events: none;
 }
 .task-body-head > div, .events-body-head > div {
     display: flex;
@@ -306,12 +331,16 @@ input:focus {
     border-radius: 20px;
     background-color: rgba(0, 0, 0, .4);
     height: calc(100vh - 135px);
+    display: flex;
+    flex-direction: column;
 }
 
 .stakeholder-body > div > div:nth-child(2) {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     overflow-y: scroll;
+    flex: 1 1 auto;
+    grid-auto-rows: 0fr;
 }
 .cardDirectory, .cardStakeholder {
     background-color: rgba(0, 0, 0, 0.35);
@@ -336,7 +365,6 @@ input:focus {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: fit-content;
     pointer-events: none;
 }
 .cardDirectory > svg,.cardTodo >svg, .cardStakeholder > svg {
@@ -554,6 +582,70 @@ form {
     background-color: white !important;
     z-index: 0 !important;
 }
+.game {
+    width: 612px;
+    height: 200px;
+    background-color: white;
+    margin: auto;
+}
+
+#dino {
+    width: 50px;
+    height: 50px;
+    background-image: url('../img/trex.png');
+    background-size: 50px 50px;
+    position: relative;
+    top: 150px;
+}
+
+.jump {
+    animation: jump 0.3s linear;
+}
+
+#cactus {
+    width: 20px;
+    height: 40px;
+    position: relative;
+    top: 110px;
+    left: 580px;
+
+    background-image: url('../img/cactus.png');
+    background-size: 20px 40px;
+}
+.animation
+{
+    animation: block 2s infinite linear;
+}
+@keyframes jump {
+    0% {
+        top: 150px;
+    }
+
+    30% {
+        top: 130px;
+    }
+
+    50% {
+        top: 80px;
+    }
+
+    80% {
+        top: 130px;
+    }
+
+    100% {
+        top: 150px;
+    }
+}
+@keyframes block {
+    0% {
+        left: 580px;
+    }
+
+    100% {
+        left: 0px;
+    }
+}
 @keyframes typing {
     from {
         width: 0
@@ -584,13 +676,6 @@ form {
     .nav{
         width: 50%;
     }
-}
-@media only screen and (max-width: 780px) {
-    .nav{
-        width: 70%;
-    }
-}
-@media only screen and (max-width: 992px) {
     .coli{
         display: inline-block;
     }
@@ -599,6 +684,15 @@ form {
         white-space: nowrap;
         display: block;
     }
+}
+@media only screen and (max-width: 780px) {
+    .nav{
+        width: 70%;
+    }
+}
+@media only screen and (max-width: 800px) {
+    .game
+    {display: none}
 }
 @media only screen and (max-width: 580px) {
     .nav{
