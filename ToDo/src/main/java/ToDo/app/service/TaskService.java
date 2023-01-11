@@ -93,7 +93,7 @@ public class TaskService {
     public List<Task> getAllByFilter(String id, String title, String priority, String name) {
         List<Task> taskList = new ArrayList<>();
         
-        if (id != null) {
+        if (id != null && !id.isEmpty()) {
             taskList.add(getById(id));
             return taskList;
         }

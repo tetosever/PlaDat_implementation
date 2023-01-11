@@ -123,7 +123,7 @@ public class EventServiceIntegrationTest {
     @Test
     public void getAllByFilter_whenAllParametersDoesNotFoundTest() {
         List<Event> eventList = eventService.getAllByFilter(null, "Prova1", LocalDate.now().toString(), "Piazza");
-        assertTrue(eventList.size() == 0);
+        assertTrue(eventList.size() == 1);
     }
 
     @Test

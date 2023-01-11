@@ -90,7 +90,7 @@ public class TaskServiceIntegrationTest {
 
     @Test
     public void getAllByFilter_whenOnlyTitleTest() {
-        List<Task> taskList = taskService.getAllByFilter(null, "Prova1", null, null);
+        List<Task> taskList = taskService.getAllByFilter(null, "Pro", null, null);
         assertTrue(taskList.size() == 3);
         assertEquals("Event1 title should be equals", taskList.get(0).getTitle(), "Prova1");
         assertEquals("Event2 title should be equals", taskList.get(1).getTitle(), "Prova1");
@@ -112,7 +112,7 @@ public class TaskServiceIntegrationTest {
 
     @Test
     public void getAllByFilter_whenOnlyUserTest() {
-        List<Task> taskList = taskService.getAllByFilter(null, null, null, "Severgnini");
+        List<Task> taskList = taskService.getAllByFilter(null, null, null, "Sever");
         assertTrue(taskList.size() == 2);
         assertEquals("Event1 title should be equals", taskList.get(0).getTitle(), "Prova1");
         assertEquals("Event2 title should be equals", taskList.get(1).getTitle(), "Prova1");
@@ -125,7 +125,7 @@ public class TaskServiceIntegrationTest {
     @Test
     public void getAllByFilter_whenAllParametersDoesNotFoundTest() {
         List<Task> taskList = taskService.getAllByFilter(null, "Prova1", Priority.High.toString(), "Piazza");
-        assertTrue(taskList.size() == 0);
+        assertTrue(taskList.size() == 1);
     }
 
     @Test

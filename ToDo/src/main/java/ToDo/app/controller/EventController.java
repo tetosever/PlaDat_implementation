@@ -97,12 +97,12 @@ public class EventController {
      */
     
     @ResponseBody
-    @RequestMapping(value = "/read/{id}/{title}/{start_date}/{user}", method = RequestMethod.GET)
+    @RequestMapping(value = "/read/filter", method = RequestMethod.GET)
     public List<Event> getAllByFilter(
-        @PathVariable(value = "id") String id,
-        @PathVariable(value = "title") String title,
-        @PathVariable(value = "start_date") String start_date,
-        @PathVariable(value = "user") String name)
+        @RequestParam(value = "id", required = false) String id,
+        @RequestParam(value = "title", required = false) String title,
+        @RequestParam(value = "start_date", required = false) String start_date,
+        @RequestParam(value = "user", required = false) String name)
     {
         return eventService.getAllByFilter(id, title, start_date, name);
     }

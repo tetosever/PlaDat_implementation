@@ -28,7 +28,12 @@ public class DirectoryService {
     public List<Directory> getAllForUpdate(String id) {
         List<Directory> directoryList = directoryRepository.findAll();
         if (id != null) {
-            directoryList.remove(directoryExists(toUUID(id)));
+            for (Directory directory : directoryList) {
+                UUID uuid = toUUID(id);
+                if (checkParentDirectory(uuid, directory)) {
+                    directoryList.remove(directory);
+                }
+            }
         }
         // TODO: 08/01/23 c'é la possibilitá di usare checkParentDirectory per tornare la lista solo delle giuste directory  
         return directoryList;

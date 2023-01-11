@@ -116,7 +116,7 @@ public class EventService {
     public List<Event> getAllByFilter(String id, String title, String start_date, String name) {
         List<Event> eventList = new ArrayList<>();
 
-        if (id != null) {
+        if (id != null && !id.isEmpty()) {
             eventList.add(getById(id));
             return eventList;
         }

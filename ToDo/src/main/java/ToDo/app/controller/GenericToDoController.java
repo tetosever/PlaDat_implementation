@@ -1,6 +1,7 @@
 package ToDo.app.controller;
 
 import ToDo.app.domain.GenericToDo;
+import ToDo.app.exception.ToDoApplicationExceptionNotFound;
 import ToDo.app.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

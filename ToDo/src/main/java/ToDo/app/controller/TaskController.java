@@ -80,13 +80,13 @@ public class TaskController {
     }
      */
 
-    //@ResponseBody
-    @RequestMapping(value = "/read/{id}/{title}/{priority}/{user}", method = RequestMethod.GET)
+    @ResponseBody
+    @RequestMapping(value = "/read/filter", method = RequestMethod.GET)
     public List<Task> getAllByFilterAndId(
-        @PathVariable(value = "id") String id,
-        @PathVariable(value = "title") String title,
-        @PathVariable(value = "priority") String priority,
-        @PathVariable(value = "user") String name)
+        @RequestParam(value = "id", required = false) String id,
+        @RequestParam(value = "title", required = false) String title,
+        @RequestParam(value = "priority", required = false) String priority,
+        @RequestParam(value = "user", required = false) String name)
     {
         return taskService.getAllByFilter(id, title, priority, name);
     }

@@ -33,7 +33,7 @@ public class ToDoApplicationControllerAdvice extends ResponseEntityExceptionHand
         return view;
     }
 
-    @ExceptionHandler(ToDoApplicationExceptionNotFound.class)
+    @ExceptionHandler({ToDoApplicationExceptionNotFound.class})
     public ModelAndView handleToDoApplicationExceptionNotFound(ToDoApplicationExceptionNotFound ex) {
         logger.error("Error: ", ex);
         ModelAndView view = new ModelAndView("exception.html");
