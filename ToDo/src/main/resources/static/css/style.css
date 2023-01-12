@@ -695,6 +695,15 @@ form {
         margin-right: 0px;
     }
 }
+@media only screen and (max-width: 720px) {
+    .directories-sub > a > svg {
+        width: 30px;
+    }
+
+    .directories-action > button > svg {
+        width: 17px;
+    }
+}
 @media only screen and (max-width: 992px) {
     .nav{
         width: 50%;
