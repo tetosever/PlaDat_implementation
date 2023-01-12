@@ -24,7 +24,6 @@ import static org.junit.Assert.assertTrue;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-@ActiveProfiles("test")
 public class EventServiceIntegrationTest {
 
     @Autowired
