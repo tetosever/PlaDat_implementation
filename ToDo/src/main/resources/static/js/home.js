@@ -123,10 +123,10 @@ $(document).ready(
                         break;
                     }
                 }
-                sendRequest(whoo);
                 $("#" + whoo).removeClass("filter-active");
 
             }
+            sendRequest(whoo);
             $("#" + whoo + " >form").css("display", "none");
             $("#" + whoo + " >form").find("input").val("");
             $("#" + whoo + " >form").find("select").val("");
