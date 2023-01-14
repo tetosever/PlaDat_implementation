@@ -12,9 +12,6 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-@JsonIdentityInfo(
-    generator = ObjectIdGenerators.PropertyGenerator.class,
-    property = "id")
 public class Event extends GenericToDo{
 
     @NonNull

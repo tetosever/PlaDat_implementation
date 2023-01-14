@@ -130,6 +130,9 @@ public class TaskService {
                 if (name != null && !name.isEmpty()) {
                     taskList = taskRepository.findByNameIsContaining(name);
                 }
+                else {
+                    taskList = taskRepository.findAll();
+                }
             }
         }
         

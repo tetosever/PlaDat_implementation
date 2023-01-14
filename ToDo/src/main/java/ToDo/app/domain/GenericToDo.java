@@ -30,9 +30,6 @@ import org.hibernate.annotations.Type;
 @Getter
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@JsonIdentityInfo(
-    generator = ObjectIdGenerators.PropertyGenerator.class,
-    property = "id")
 public class GenericToDo {
 
     @Id

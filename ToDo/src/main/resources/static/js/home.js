@@ -249,7 +249,7 @@ function sendRequest(w) {
     } else {
         $.get("/tasks/read/filter?id=" + tId + "&title=" + tTile + "&priority=" + tPriority + "&user=" + eName, function (data) {
             $(".task-body").html("");
-            id(data!=null)
+            if(data!=null)
             {
                 data.forEach((element) => {
                     $(".task-body").append(

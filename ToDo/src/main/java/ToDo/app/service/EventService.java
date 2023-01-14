@@ -157,6 +157,9 @@ public class EventService {
                 if (name != null && !name.isEmpty()) {
                     eventList = eventRepository.findByNameIsContaining(name);
                 }
+                else {
+                    eventList = eventRepository.findAll();
+                }
             }
         }
         return eventList;

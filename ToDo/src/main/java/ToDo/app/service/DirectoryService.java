@@ -98,8 +98,7 @@ public class DirectoryService {
         }
         directoryRepository.save(savedDirectory);
     }
-
-    @Transactional
+    
     public void delete(String id){
         UUID uuid = toUUID(id);
         directoryValidator.validateId(uuid);
