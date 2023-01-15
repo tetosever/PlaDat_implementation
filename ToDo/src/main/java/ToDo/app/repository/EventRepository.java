@@ -18,7 +18,7 @@ public interface EventRepository extends JpaRepository<Event, UUID> {
     
     @Query(value = "SELECT event " +
             "FROM Event event " +
-            "WHERE event.start_date >= :startdate")
+            "WHERE event.start_date = :startdate")
     List<Event> findByStart_dateAfter(LocalDate startdate);
 
     @Query(value = "SELECT event " +
@@ -30,7 +30,7 @@ public interface EventRepository extends JpaRepository<Event, UUID> {
     @Query(value = "SELECT event " +
         "FROM Event event " +
         "WHERE event.title lIKE CONCAT('%', :title, '%') " +
-        "AND event.start_date >= :startdate")
+        "AND event.start_date = :startdate")
     List<Event> findByTitleContainsAndStart_dateAfter(String title, LocalDate startdate);
 
     @Query(value = "SELECT event " +
@@ -43,7 +43,7 @@ public interface EventRepository extends JpaRepository<Event, UUID> {
     @Query(value = "SELECT event " +
         "FROM Event event " +
         "JOIN event.usersList user " +
-        "WHERE event.start_date >= :startdate " +
+        "WHERE event.start_date = :startdate " +
         "AND CONCAT(user.name, ' ', user.surname) lIKE CONCAT('%', :name, '%')")
     List<Event> findByStart_dateAfterAndNameIsContaining(LocalDate startdate, String name);
 
@@ -51,7 +51,7 @@ public interface EventRepository extends JpaRepository<Event, UUID> {
         "FROM Event event " +
         "JOIN event.usersList user " +
         "WHERE event.title lIKE CONCAT('%', :title, '%') " +
-        "AND event.start_date >= :startdate " +
+        "AND event.start_date = :startdate " +
         "AND CONCAT(user.name, ' ', user.surname) lIKE CONCAT('%', :name, '%')")
     List<Event> findByTitleContainsAndStart_dateAfterAndNameIsContaining(String title, LocalDate startdate, String name);
 

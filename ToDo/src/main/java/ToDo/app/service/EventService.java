@@ -63,9 +63,15 @@ public class EventService {
         event.setStart_date(formatterStringToDateTime(start_date));
         event.setEnd_date(formatterStringToDateTime(end_date));
         event.setPlace(place.trim());
-        event.setUsersList(new ArrayList<>());
-        event.getUsersList().add(usersService.getById(user_id));
-        event.setDirectory(directoryService.getById(directory_id));
+        if (user_id != null) {
+            String[] users = user_id.split(",");
+            for (String i: users) {
+                event.getUsersList().add(usersService.getById(i));
+            }
+        }
+        if (directory_id != null) {
+            event.setDirectory(directoryService.getById(directory_id));
+        }
         
         return eventRepository.save(event);
     }

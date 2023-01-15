@@ -7,7 +7,10 @@ import ToDo.app.domain.Users;
 import ToDo.app.exception.ToDoApplicationException;
 import ToDo.app.repository.TaskRepository;
 import ToDo.app.validation.TaskValidator;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -51,7 +54,10 @@ public class TaskService {
         task.setDescription(description);
         task.setUsersList(new ArrayList<>());
         if (user_id != null) {
-            task.getUsersList().add(usersService.getById(user_id));
+            String[] users = user_id.split(",");
+            for (String i: users) {
+                task.getUsersList().add(usersService.getById(i));
+            }
         }
         if (directory_id != null) {
             task.setDirectory(directoryService.getById(directory_id));
