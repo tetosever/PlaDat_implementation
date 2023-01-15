@@ -63,6 +63,7 @@ public class EventService {
         event.setStart_date(formatterStringToDateTime(start_date));
         event.setEnd_date(formatterStringToDateTime(end_date));
         event.setPlace(place.trim());
+        event.setUsersList(new ArrayList<>());
         if (user_id != null) {
             String[] users = user_id.split(",");
             for (String i: users) {
