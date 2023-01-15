@@ -247,7 +247,7 @@ function sendRequest(w) {
             }
         });
     } else {
-        $.get("/tasks/read/filter?id=" + tId + "&title=" + tTile + "&priority=" + tPriority + "&user=" + eName, function (data) {
+        $.get("/tasks/read/filter?id=" + tId + "&title=" + tTile + "&priority=" + tPriority + "&user=" + tName, function (data) {
             $(".task-body").html("");
             if(data!=null)
             {
