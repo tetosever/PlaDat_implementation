@@ -68,17 +68,17 @@ Important to note that the data types of Role and Priority are **Enumerative**:
 
 - **Directories** to manage folders and subfolders associated with To-Dos 
 
-![](readme_img/2.jpeg)
+![](README_IMG/2.jpeg)
 
-![](readme_img/3.png)
+![](README_IMG/3.png)
 
 You can **navigate** through the directories (using the buttons to enter the tree of each folder or go back \*folder side icon\*), **edit, add, delete** and **view** them. 
 
 - **Home** to maganage to-dos divided into Events and Tasks 
 
-![](readme_img/4.jpeg)
+![](README_IMG/4.jpeg)
 
-![](readme_img/5.png) ![](readme_img/6.png)
+![](README_IMG/5.png) ![](README_IMG/6.png)
 
 You can **add, edit, delete** and **view** events and tasks. In addition, through the appropriate buttons you can filter them simultaneously and manage **all possible combinations of filters** to provide you with an effective user experience. 
 
@@ -86,15 +86,15 @@ The locations associated with events, moreover, are seamlessly integrated with *
 
 - **Stakeholders** to manage users associated with to-Dos 
 
-![](readme_img/7.jpeg)
+![](README_IMG/7.jpeg)
 
-![](readme_img/8.png)
+![](README_IMG/8.png)
 
 You **can add, edit, delete** and **view** stakeholders. 
 
 Finally, in case of problems we have provided a page for **exceptions** accompanied by a nice little game. 
 
-![](readme_img/9.png)
+![](README_IMG/9.png)
 
 **Technologies, languages and tools** 
 
@@ -189,9 +189,7 @@ We **list the APIs of the services offered by PlaDat**:
 ||<p>GET  </p><p>**/** </p>|<p>GET </p><p>**/read** </p>|<p>GET </p><p>**/read/{id}** </p>|<p>GET  </p><p>**/delete{id}** </p>|<p>POST </p><p>**/create** </p>|POST **/update{id}** |
 | :- | - | - | - | - | - | :- |
 |/stakeholders |Find  all stakeholders and  returns  a view |Find  all stakeholders |Find  a stakeholder by ID |Delete  a stakeholder by  ID  and redirect |Create  a stakeholder and redirect |Update  a stakeholder by  ID  and redirect |
-
 |/events |Find all events and  returns  a view |Find all events |Find  a event by ID |Delete  a event  by  ID and redirect |Create  a event  and redirect |Update  a event  by  ID and redirect |
-| - | - | - | - | - | - | - |
 |/tasks |Find  all  tasks and  returns  a view |Find all tasks |Find  a  task by ID |Delete  a task  by  ID and redirect |Create  a task  and redirect |Update  a task  by  ID and redirect |
 |/directories |Find  all directories and  returns  a view |Find  all directories |Find  all directories children  by parent ID |Delete  a directory by ID  and redirect |Create  a directory and redirect |Update  a directory by ID  and redirect |
 |/ |Find  all genericToDo (events+tasks) and  returns  a view. |**-** |**-** |**-** |**-** |**-** |
@@ -209,7 +207,7 @@ Whatever time an address pointing to an **incorrect API is entered**, PlaDat wil
 
 We have already highlighted the technologies used in PlaDat, but we have not emphasized how they affected the **architecture of the project**. ORMs, frameworks, etc. help in writing more maintainable and efficient code, all while decreasing development time; however, they constrain in adhering to certain **proven structures**. 
 
-![](readme_img/10.png)
+![](README_IMG/10.png)
 
 PlaDat has the following **architecture** at the macroscopic level: 
 
@@ -236,13 +234,13 @@ We would like to specify that in order to increase **decoupling** and **separati
 
 The **Domain Diagram** is a **structural UML diagram** that describes the various entities that are part of or **relevant at the domain level** and their relationships. It is the most important and classic model of object-oriented analysis, and is useful for **focusing on the fundamental concepts** of a system and defining a specific vocabulary for it. It is not to be confused with the class diagram: we can see it as the source for the (later) creation of software classes. 
 
-![](readme_img/11.jpeg)
+![](README_IMG/11.jpeg)
 
 **ER diagram (Entity Relationship Diagram)** 
 
 The **Entity-Relationship model** (more commonly called the ER model) is a theoretical model for the **conceptual and graphical representation of data** at a high level of abstraction. It is used when it is necessary to translate the information resulting from the analysis of a given domain into a conceptual schema, called, precisely, an entity-relationship diagram. 
 
-![](readme_img/12.jpeg)
+![](README_IMG/12.jpeg)
 
 **How to run PlaDat: a short guide** 
 
@@ -364,11 +362,11 @@ We report **team members**:
 
 *Main technologies used in PlaDat (visual):* 
 
-![](readme_img/13.png)![](readme_img/14.png) ![](readme_img/15.png) ![](readme_img/16.png) ![](readme_img/17.png) ![](readme_img/18.png) ![](readme_img/19.png)
+![](README_IMG/13.png)![](README_IMG/14.png) ![](README_IMG/15.png) ![](README_IMG/16.png) ![](README_IMG/17.png) ![](README_IMG/18.png) ![](README_IMG/19.png)
 
-![](readme_img/20.png) +   ![](readme_img/21.png) ![](readme_img/22.png) ![](readme_img/23.png)
+![](README_IMG/20.png) +   ![](README_IMG/21.png) ![](README_IMG/22.png) ![](README_IMG/23.png)
 
-![](readme_img/24.png) ![](readme_img/25.png)![](readme_img/26.png) ![](readme_img/27.png)![](readme_img/28.png)
+![](README_IMG/24.png) ![](README_IMG/25.png)![](README_IMG/26.png) ![](README_IMG/27.png)![](README_IMG/28.png)
 
 & (Javax Annotation) --- THE END --- 
 Mattia Piazzalunga & Matteo Severgnini  13 
