@@ -193,6 +193,7 @@ We **list the APIs of the services offered by PlaDat**:
 |/tasks |Find  all  tasks and  returns  a view |Find all tasks |Find  a  task by ID |Delete  a task  by  ID and redirect |Create  a task  and redirect |Update  a task  by  ID and redirect |
 |/directories |Find  all directories and  returns  a view |Find  all directories |Find  all directories children  by parent ID |Delete  a directory by ID  and redirect |Create  a directory and redirect |Update  a directory by ID  and redirect |
 |/ |Find  all genericToDo (events+tasks) and  returns  a view. |**-** |**-** |**-** |**-** |**-** |
+
 For **events and tasks** there are also searches **with filters**: 
 
 - /tasks/filter/{id}/{title}/{priority}/{user} 
